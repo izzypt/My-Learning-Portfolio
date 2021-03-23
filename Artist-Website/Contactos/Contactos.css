@@ -1,0 +1,155 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: brown;
+}
+
+#cabeçalho{
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100px;
+    width : 100%;
+    z-index: 999;
+    }
+
+    header , h1{
+        margin: 2px;
+        color: white ;
+        align-self: flex-end;
+        font-size: 55px;
+        font-family:  Avantgarde, TeX Gyre Adventor, URW Gothic L, Georgia, sans-serif;
+    }
+    
+    header p{
+        font-size: 25px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+        position: absolute;
+        transform: translate(95px , -20px);
+    }
+
+    ul {
+        margin: 0px;
+        padding: 0px;
+        position : absolute;
+        transform: translate(850px , -20px);
+        
+    }
+
+    li{
+        display: inline ;
+        border: 1px solid white;
+        font-size: 15px;
+        padding: 10px;
+        margin: 5px;
+        color : white
+    }
+
+    li:hover{
+        background-color:rgb(173, 216, 230 , .5);
+        cursor: pointer ;
+        color : black;
+    
+    }
+
+    a:any-link{
+        text-decoration : none;
+        color: white;
+    }
+
+    a:any-link:hover{
+        color:black;
+    }
+
+#titulo{
+        box-sizing: border-box;
+        display : inline-block;
+        position: relative;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+        color: rgb(218, 165, 32 , 0.6);
+        font-size: 40px;
+        height: 110px;
+        text-align: center;
+        margin-top : 60px;
+        margin-bottom : 2px;
+        margin-left: 23%;
+    }
+#description{
+    box-sizing: border-box;
+    display: block;
+    justify-content: center;
+    color: black;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    font-size: 20px;
+    padding: 10px;
+    }
+    
+    hr{
+        border: 2px solid rgb(218, 165, 32 , 0.6);
+        border-radius: 50%;}
+
+#container{
+    box-sizing: border-box;
+    position : flex;
+    flex-flow: row;
+    max-height: 450px;
+    box-sizing : border-box;
+    align-self : center;
+}
+
+#default{
+    color : black;
+    border : none
+}
+
+#RedesSociais{
+    box-sizing: border-box;
+    display: inline-block;
+    width : 400px;
+    height : 300px;
+    margin : 0;
+    text-align: center;
+    border : 2px solid rgb(218, 165, 32 , 0.6);
+    background-color: rgba(59, 24, 3, 1);
+    color : white;
+    margin-left : 15%;
+}
+
+#RedesSociais img{
+    width : 50px;
+    height : 50px;
+    margin-top: 10px;
+
+}
+
+#RedesSociais h4{
+    margin-top: 1px;
+    text-align: center;
+}
+
+
+#OutrosContactos{
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    width : 400px;
+    height : 300px;
+    border : 2px solid rgb(218, 165, 32 , 0.6);
+    background-color: rgba(59, 24, 3, 1);
+    color : white;
+    margin-left : 15%;
+    text-align: center;    
+}
+
+
+#OutrosContactos img{
+    width : 60px;
+    height : 50px;
+    margin-top: 10px;
+
+}
+
+#OutrosContactos h4{
+    margin-top: 1px;
+    text-align: center;
+}
