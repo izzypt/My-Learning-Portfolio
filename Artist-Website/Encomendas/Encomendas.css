@@ -1,0 +1,124 @@
+body{
+    margin: 0px;
+    background-color: brown;
+}
+
+#cabeçalho{
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100px;
+    width: 100%;
+    z-index: 999;
+    margin : 0 auto;
+    }
+    
+    header , h1{
+        margin: 2px;
+        color: white ;
+        font-size: 55px;
+        font-family:  Avantgarde, TeX Gyre Adventor, URW Gothic L, Georgia, sans-serif;
+    }
+    
+    header p{
+        font-size: 25px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+        position: absolute;
+        transform: translate(95px , -20px);
+    }
+    
+    ul {
+        margin: 0px;
+        padding: 0px;
+        position : relative;
+        width: 100%;
+        transform: translate(850px , -20px);
+        
+    }
+    
+    li{
+        display: inline ;
+        border: 1px solid white;
+        font-size: 15px;
+        padding: 10px;
+        margin: 5px;
+        color : white
+    }
+    
+    li:hover{
+        background-color:rgb(173, 216, 230 , .5);
+        cursor: pointer ;
+        color : black;
+    }
+    
+    a:any-link{
+        text-decoration : none;
+        color: white;
+    }
+    
+    a:any-link:hover{
+        color:black;
+    } 
+
+    #titulo{
+        position : relative;
+        display: inline-block;
+        text-align: center;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+        color: rgb(218, 165, 32 , 0.6);
+        font-size: 40px;
+        padding: 55px;
+        padding-bottom: 0px;
+        height: 110px;
+        left : 20%;
+    
+    }
+    
+    #description{
+        color: black;
+        text-align: center;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+        font-size: 20px;
+        padding: 10px;
+    }
+
+    form{
+        box-sizing: border-box;
+        display: inline-block;
+        margin-left: 450px;
+        margin-bottom: 30px;
+        margin-top: 15px;
+        padding: 10px;
+        padding-bottom: 20px;
+        text-align: center;
+        border : 25px solid black;
+        border-image-source: url(../Imagens/moldura_2_editada.png);
+        border-image-slice: 40 40 40 40;
+    }
+
+    label{
+        font-size: 17px;
+        font-weight: bolder;
+    }
+
+    hr{
+        border: 2px solid rgb(218, 165, 32 , 0.6);
+        border-radius: 50%;
+    }
+
+    input{
+        border-radius : 15%;
+        border : 2px solid rgb(218, 165, 32 , 0.6);
+        opacity : 0.9;
+        border-top : none;
+        border-right: none;
+        border-left : none;
+    }
+
+    #myfile{
+        border : none;
+    }
+
+    textarea{
+        opacity : 0.9;
+    }
+    

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Encomendas.css">
+    <title>Encomendas</title>
+</head>
+<body>
+
+  <div id="cabeçalho">
+
+    <header>
+      <h1>Joana Bonvalot</h1>
+      <p>Artista - Pintora Clássica<p>
+    </header>
+      
+    <ul>
+      <li><a href="../HomePage/HomePage.html">Página Inicial</a></li>
+      <li><a href="../Galeria/Galeria.html">Galeria</a></li>
+      <li><a href="../Curriculo/Curriculo.html">Sobre Mim</a></li>
+      <li><a href="../Encomendas/Encomendas.html">Encomendas</a></li>
+      <li><a href="../Contactos/Contactos.html">Contactos</a></li>
+  </ul>
+  </div> 
+
+  <div id="titulo">
+    <h2>Como fazer uma encomenda</h2>
+  </div>
+
+  <div id="description">
+    <hr>
+    <p>Deixe-nos o seu contacto e uma breve descrição do que deseja, de seguida receberá um e-mail de confirmação ao seu pedido.</p>
+    <p></p>
+    <p>É possível realizar pedidos ou encomendas específicas que serão atendidas em função do volume de encomendas e a natureza do trabalho.</p>
+    <hr>
+  </div>
+
+  <form action="http://localhost:3000/" method="POST">
+    <label for="fname">Nome</label><br>
+    <input type="text" id="fname" name="fname"><br><br>     
+
+    <label for="contacto">Contacto Telefónico</label><br>
+    <input type="email" id="contacto" name="contacto"><br><br>
+
+    <label for="email">E-mail</label><br>
+    <input type="email" id="email" name="email"><br><br>
+
+    <hr>
+    
+    <label for="Descreva">Faça uma pequena descrição do que pretende:</label><br><br>
+    <textarea id="Descreva" name="Descreva" rows="4" cols="50" placeholder="Exemplo : Orçamento de retrato a óleo , 40cm x 80cm."></textarea><br><br>
+
+    <label for="myfile">Anexe fotografias ou documentos associados à encomenda:</label><br><br>
+    <input type="file" id="myfile" name="myfile"><br><br>
+
+    <hr>
+
+    <label for="submeter"></label><br><br>
+    <input type="submit" id="Submeter" name="Submeter"><br>
+  </form> 
+ <hr>
+
+ <footer></footer>
+    
+</body>
+</html>
