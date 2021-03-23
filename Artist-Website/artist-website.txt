@@ -1,0 +1,1 @@
+This most of the front-end for a small and simple website with some small features and interactivity.
