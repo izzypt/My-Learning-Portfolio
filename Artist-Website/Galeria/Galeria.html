@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria</title>
+    <link rel="stylesheet" href="Galeria.css">
+</head>
+<body>
+
+  <div id="cabeçalho">
+
+    <header>
+      <h1>Joana Bonvalot</h1>
+      <p>Artista - Pintora Clássica<p>
+    </header>
+
+    <ul>
+      <li><a href="../HomePage/HomePage.html">Página Inicial</a></li>
+      <li><a href="../Galeria/Galeria.html">Galeria</a></li>
+      <li><a href="../Curriculo/Curriculo.html">Sobre Mim</a></li>
+      <li><a href="../Encomendas/Encomendas.html">Encomendas</a></li>
+      <li><a href="../Contactos/Contactos.html">Contactos</a></li>
+    </ul>
+
+  </div> 
+
+  <div id="titulo">
+
+    <h2>Galeria</h2>
+
+  </div>
+
+  <div id="description">
+
+    <hr>
+    <p>Pode conferir abaixo os vários trabalhos que se foram acumulando ao longo dos anos de experiência da artista, que já conta com mais de 500 obras entre retratos, impressionismo e muitos estilos de pintura diferentes.<br><br>
+    Descubra as várias obras da artista ou pesquise em função do estilo, nome ou ano.</p>
+    <hr>
+
+  </div>
+
+ <div id="SearchBar">
+    Pode filtrar a galeria de acordo com as seguintes opções:<br><br>
+
+  <label for="tecnica">Técnica:</label><br>
+
+    <select name="tecnica" id="tecnica">
+      <option value="oleo" selected>Óleo</option>
+      <option value="lapis">Lápis</option>
+      <option value="aguarela">Aguarela</option>
+    </select><br><hr>
+
+  <label for="estilo">Estilo:</label><br>
+
+    <select name="estilo" id="estilo">
+      <option value="paisagem">Paisagem</option>
+      <option value="retrato">Retrato</option>
+      <option value="ilustração">Ilustração</option>
+    </select><br><hr>
+
+
+    <label for="tamanho">Dimensões:</label><br>
+
+    <select name="tamanho" id="tamanho">
+      <option value="pequeno">Pequeno - 15*20 a 24*30</option>
+      <option value="medio">Médio - 30*40 a 60*70</option>
+      <option value="grande">Grande - Até 100*120</option>
+    </select><br><hr><br>
+
+    <button onclick="filtrar()">Filtrar</button> <button onclick="repor()">Repor</button>
+ </div> 
+ <hr>
+  
+
+
+  <div id ="CaixaGaleria" class="gallery">
+    <div data-tecnica="lapis" data-estilo="retrato" data-tamanho="pequeno"><img title="Clique para ver no tamanho original" src="../Imagens/Filme/14.jpg"></div>
+    <div data-tecnica="lapis" data-estilo="retrato" data-tamanho="medio"><img title="Clique para ver no tamanho original" src="../Imagens/Filme/16.jpg"></div>
+    <div data-tecnica="lapis" data-estilo="retrato" data-tamanho="grande"><img title="Clique para ver no tamanho original" src="../Imagens/Filme/17.jpg"></div>
+    <div data-tecnica="aguarela" data-estilo="paisagem" data-tamanho="pequeno"><img title="Clique para ver no tamanho original" src="../Imagens/Filme/20.jpg"></div>
+    <div data-tecnica="aguarela" data-estilo="paisagem" data-tamanho="medio"><img title="Clique para ver no tamanho original" src="../Imagens/Filme/22.jpg"></div>
+    <div data-tecnica="aguarela" data-estilo="paisagem" data-tamanho="grande"><img title="Clique para ver no tamanho original" src="../Imagens/Filme/27.jpg"></div>
+    <div data-tecnica="oleo" data-estilo="ilustração" data-tamanho="pequeno"><img title="Clique para ver no tamanho original" src="../Imagens/Filme/37.jpg"></div>
+    <div data-tecnica="oleo" data-estilo="ilustração" data-tamanho="medio"><img title="Clique para ver no tamanho original" src="../Imagens/Filme/42.jpg"></div>
+    <div data-tecnica="oleo" data-estilo="ilustração" data-tamanho="grande"><img title="Clique para ver no tamanho original" src="../Imagens/Filme/53.jpg"></div>
+  </div>
+      
+</body>
+<script src="Galeria.js"></script>
+</html>

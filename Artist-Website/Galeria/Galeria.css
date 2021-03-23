@@ -1,0 +1,154 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: column;
+    background-color: brown;
+}
+
+#cabeçalho{
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100px;
+    width : 100%;
+    z-index: 999;
+    }
+    
+    header h1{
+        margin: 3px;
+        color: white ;
+        font-size: 55px;
+        font-family:  Avantgarde, TeX Gyre Adventor, URW Gothic L, Georgia, sans-serif;
+    }
+    
+    header p{
+        position: absolute;
+        color: white;
+        font-size: 25px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+        transform: translate(95px , -20px);
+    }
+    
+    ul {
+        margin: 0px;
+        padding: 0px;
+        position : absolute;
+        transform: translate(850px , -20px);
+        
+    }
+    
+    li{
+        display: inline ;
+        border: 1px solid white;
+        font-size: 15px;
+        padding: 10px;
+        margin: 5px;
+        color : white
+    }
+    
+    li:hover{
+        background-color:rgb(173, 216, 230 , .5);
+        cursor: pointer ;
+        color : black;
+    
+    }
+    
+    a:any-link{
+        text-decoration : none;
+        color: white;
+    }
+    
+    a:any-link:hover{
+        color:black;
+    }
+
+#titulo{
+    position: static;
+    display : block;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    color: rgb(218, 165, 32 , 0.6);
+    font-size: 40px;
+    padding: 55px;
+    padding-bottom: 0px;
+    height: 110px;
+    text-align: center;
+    margin-bottom : 2px;
+}
+
+#description{
+    color: black;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    font-size: 20px;
+    padding: 10px;
+}
+
+hr{
+    display : block;
+    border: 2px solid rgb(218, 165, 32 , 0.6);
+    border-radius: 50%;
+}
+
+
+#SearchBar{
+    padding : 1px;
+    position: relative;
+    display: inline-block;
+    width: 250px;
+    height: 300px;
+    align-self : flex-start;
+    border : 2px solid rgb(218, 165, 32 , 0.6);
+    left:3%;
+    background-color: rgba(59, 24, 3, 1);
+    color: white;
+    font-family:  Avantgarde, TeX Gyre Adventor, URW Gothic L, Georgia, sans-serif;
+    font-weight: bolder;
+    text-align: center;
+}
+
+#SearchBar select , label{
+    position: relative;
+}
+
+#SearchBar button{
+    position : relative;
+    border: 1px solid rgb(218, 165, 32 , 0.6);
+    margin-left: 5px;
+}
+
+
+#CaixaGaleria{
+    display: grid;
+    position: relative;
+    width : auto ;
+    height: auto ;
+    max-width: 900px;
+    max-height: auto;
+    min-width: 800px;
+    min-height: 1000px;
+    border : 50px solid black;
+    border-image-source: url(../Imagens/Moldura+Grossa.webp);
+    border-image-slice: 110 110 110 110;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    background-color:white;
+    bottom : 322px;
+    left : 315px;
+
+}
+
+#CaixaGaleria img{
+    max-width: 100%;
+    height: 280px;  
+    cursor: zoom-in;
+    border : 1px solid rgb(119, 60, 4);
+}
+
+#CaixaGaleria img:hover{
+    transform: scale(1.4)
+}
+
+
+
+
+
