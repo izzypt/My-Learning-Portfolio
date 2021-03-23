@@ -1,0 +1,346 @@
+body
+{
+    margin: 0%  ;
+}
+
+.cabecalho
+{
+    display: block;
+    text-align: center;
+    background-color: rgb(17, 141, 69, 0.7);
+    text-align : center;
+}
+
+#titulo
+{
+    margin : 0;
+    cursor: pointer;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 25px;
+    letter-spacing: 15px;
+    word-spacing: 5px;
+    color: #000000;
+    font-weight: 900;
+    text-decoration: underline solid rgb(68, 68, 68);
+    font-style: normal;
+    font-variant: normal;
+    text-transform: capitalize;
+}
+
+#userProfile
+{ 
+    visibility: hidden;
+    opacity : 0;
+    background-color: gray;
+    margin: 0%;
+    position: fixed;
+    width : 30%;
+    height: 100%;
+    border : 1px solid black;
+    z-index: 999;
+    top: 0%;
+    transition: 1250ms;
+}
+
+#userProfile h1
+{
+    text-align: center;
+}
+
+#userImage
+{
+    height: 200px;
+    width: 200px;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profileList
+{
+    display : block;
+    border: none;
+    border-bottom: 2px dotted black;
+    text-align: center;
+}
+
+#ulcabecalho
+{
+    padding : 0px;
+}
+
+#ulcabecalho li
+{
+    padding : 5px;
+    display: inline-block;
+    font-weight: bolder;
+}
+
+li:hover
+{
+    background-color: white;
+    cursor: pointer;
+    border-left : 2px solid black;
+}
+
+a
+{
+
+    color: inherit;
+    text-decoration: none; 
+      
+}
+
+form
+{
+    margin : 15px;
+    text-align : center;
+}
+
+#Searchbar
+{
+    border-radius: 50%;
+    padding: 5px;
+}
+
+#companyLogo
+{
+    text-align: center;
+    padding: 0px;
+}
+
+#companyImage
+{
+    width: 120px;
+    height: 120px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+
+}
+
+#AddToButtonsDiv
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.addToButtons
+{
+    background-color: rgb(17, 141, 69, 0.7);
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0 16px;
+    font-size: 1rem;
+}
+
+#companyOverview
+{
+    text-align: center;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 75%;
+    border: 3px solid black;
+}
+
+
+
+#squareCharts
+{
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+#squareCharts > * {
+    vertical-align: middle;
+}
+
+
+
+#AddChart
+{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 50%;
+    padding: 20px;
+
+}
+
+#SeparadorAnalise
+{
+    position: relative;
+    display: flex;
+}
+
+#SeparadorAnalise ul
+{
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#SeparadorAnalise li
+{
+    padding : 5px;
+    display: inline-block;
+    font-weight: bolder;
+    text-decoration: overline black;
+}
+
+#SeparadorAnalise ul li:hover
+{
+    background-color: rgb(17, 141, 69, 0.7);
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid black;
+}
+
+.Squares
+{
+    display: inline-block;
+    position: relative;
+    margin: 20px;
+    width : 350px;
+    Height : 350px;
+    border : 12px solid red;
+    align-items: center;
+    cursor: grab;
+    padding: 5px;
+    border-radius: 5%;
+}
+
+.opcoes
+{
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.Squares:hover
+{
+    transform: scale(1.1);
+}
+
+#Square1
+{
+    display: inline-block;
+    position: relative;
+    margin: 20px;
+    width : 350px;
+    Height : 350px;
+    border : 12px solid green;
+    align-items: center;
+    cursor: grab;
+    padding: 5px;
+    border-radius: 5%;
+}
+
+#Square2
+{
+    display : inline-block;
+    position: relative;
+    margin: 20px;
+    width : 350px;
+    Height : 350px;
+    border : 12px solid orange;
+    align-items: center;
+    cursor: grab;
+    padding: 5px;
+    border-radius: 5%;
+}
+
+#Square3
+{
+    display : inline-block;
+    position: relative;
+    margin: 20px;
+    width : 350px;
+    Height : 350px;
+    border : 12px solid black;
+    align-items: center;
+    cursor: grab;
+    padding: 5px;
+    border-radius: 5%;
+}
+
+#Square4
+{
+    display: inline-block;
+    position: relative;
+    margin: 20px;
+    width : 350px;
+    Height : 350px;
+    border : 12px solid rgb(136, 57, 4);
+    align-items: center;
+    cursor: grab;
+    padding: 5px;
+    border-radius: 5%;
+}
+
+#Square5
+{
+    display: inline-block;
+    position: relative;
+    margin: 20px;
+    width : 350px;
+    Height : 350px;
+    border : 12px solid rgb(189, 49, 72);
+    align-items: center;
+    cursor: grab;
+    padding: 5px;
+    border-radius: 5%;
+}
+
+#Square6
+{
+    display: inline-block;
+    position: relative;
+    margin: 20px;
+    width : 350px;
+    Height : 350px;
+    border : 12px solid rgb(70, 5, 70);
+    align-items: center;
+    cursor: grab;
+    padding: 5px;
+    border-radius: 5%;
+}
+
+#AddSquare
+{
+    display: flex;
+    align-items: center;
+    border: hidden;
+}
+
+.AddSymbol
+{
+    position: relative;
+    width : 155px;
+    height : 90px;
+    top : 35%;
+    left: 29%;
+    cursor: pointer;
+}
+
+.displayStatistic
+{
+    border : 2px solid black;
+    width: 345px;
+    height: 345px;
+    margin : 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

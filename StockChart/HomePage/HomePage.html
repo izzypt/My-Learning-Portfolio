@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link a href="HomePage.css" type="text/css" rel="stylesheet">
+    <title>HomePage - StockChart</title>
+</head>
+<body>
+
+    <div class = "cabecalho" id="cabecalho">
+        <h1 id ="titulo" onclick="window.location.reload()">Stock Chart</h1>
+        
+        <ul id="ulcabecalho">
+            <li style="text-decoration: overline black 3px;">Search</li>
+            <li id="profileButton">Profile</li>
+            <li><a href="../Wallet/wallet.html">My Wallet</a></li>
+            <li>My WatchList</li>
+            <li>My News</li>
+        </ul>
+    </div>
+
+    <div id="userProfile">
+        <h1><u>My Profile</u></h1>
+        <div id="userImage"><img src="../Imagens/AnonymousUserImage.jpg" style="object-fit: cover; border-radius: 50%;"></div>
+        <h2 style ="text-align: center;"><u>Username</u></h2>
+        <ul style="display: block; padding : 0px;">
+            <li class="profileList">O meu perfil</li>
+            <li class="profileList">Statistics</li>
+            <li class="profileList">Definições</li>
+            <li class="profileList"><a href="../Login/Login.html">Logout</a></li>
+        </ul>
+        <button id ="closeUserProfile" style="transform: translateX(500%);">Close</button>
+    </div>
+
+    <form id="SearchForm">
+        <label for="searchbar"></label><br>
+        <input type="search" name="searchbar" id="searchbar" placeholder="Company name..">
+        <button type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    <div id="companyLogo" style="visibility : hidden;">
+        <div id="companyName" style="font-size: xx-large;"></div>
+        <div><img src="" style="height: 120px; width: 120px;" id="companyImage"></div>
+        
+       <div id="AddToButtonsDiv">
+            <button class = "addToButtons" id="addToWallet">Add to my wallet</button>
+            <button class = "addToButtons" id="addToWatchList">Add to my WatchList</button>
+            <button class = "addToButtons" id="addToNews">Add to my News</button>
+        </div> 
+        <h2 style ="text-align: center;">Overview</h2>
+
+        <div id="companyOverview"></div>
+    </div>
+</div>
+    
+
+<div id ="squareCharts" style ="visibility: hidden;">
+
+
+    <div id="AddChart" style="font-size: large;">Personaliza a tua análise :</div>
+
+    <div id="SeparadorAnalise">
+        <ul>        
+            <li>Overview Data</li>
+            <li>Fundamental Data</li>
+            <li>Technical Data</li>
+            <li>Calendar</li>
+            <li>Recent News</li>
+            <li>Next Events..</li>
+        </ul>
+
+    </div>
+
+    <div id="Square1" class="Squares" draggable="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <select class="opcoes" name="stats" id="stats1" selected ="-" style="left: 35%;">
+            <option>-</option>
+            <option>Sector</option>
+            <option>PERatio</option>
+            <option>EPS</option>
+            <option>BookValue</option>
+            <option>SharesOutstanding</option>
+            <option>SharesFloat</option>
+            <option>ShortRatio</option>
+            <option>52WeekHigh</option>
+            <option>52WeekLow</option>
+        </select>
+        <div id="Stat1" class="displayStatistic"></div>
+    </div>
+
+    <div id ="Square2" class="Squares" draggable="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <select class="opcoes" name="stats" id="stats2" selected ="-" style="left: 35%;">
+            <option>-</option>
+            <option>Sector</option>
+            <option>PERatio</option>
+            <option>EPS</option>
+            <option>BookValue</option>
+            <option>SharesOutstanding</option>
+            <option>SharesFloat</option>
+            <option>ShortRatio</option>
+            <option>52WeekHigh</option>
+            <option>52WeekLow</option>
+        </select>
+        <div id="Stat2" class="displayStatistic"></div>
+    </div>
+
+    <div id ="Square3" class="Squares" draggable ="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <select class="opcoes" name="stats" id="stats3"  selected ="-" style="left: 35%;">
+            <option>-</option>
+            <option>Sector</option>
+            <option>PERatio</option>
+            <option>EPS</option>
+            <option>BookValue</option>
+            <option>SharesOutstanding</option>
+            <option>SharesFloat</option>
+            <option>ShortRatio</option>
+            <option>52WeekHigh</option>
+            <option>52WeekLow</option>
+        </select>
+        <div id="Stat3" class="displayStatistic"></div>
+    </div>
+
+    <div id ="Square4" class="Squares" draggable ="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <select class="opcoes" name="stats" id="stats4" selected ="-" style="left: 35%;">
+            <option>-</option>
+            <option>Sector</option>
+            <option>PERatio</option>
+            <option>EPS</option>
+            <option>BookValue</option>
+            <option>SharesOutstanding</option>
+            <option>SharesFloat</option>
+            <option>ShortRatio</option>
+            <option>52WeekHigh</option>
+            <option>52WeekLow</option>
+        </select>
+        <div id="Stat4" class="displayStatistic" class=""></div>
+    </div>
+
+    <div id ="Square5" class="Squares" draggable ="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <select class="opcoes" name="stats" id="stats5" selected ="-" style="left: 35%;">
+                <option>-</option>
+                <option>Sector</option>
+                <option>PERatio</option>
+                <option>EPS</option>
+                <option>BookValue</option>
+                <option>SharesOutstanding</option>
+                <option>SharesFloat</option>
+                <option>ShortRatio</option>
+                <option>52WeekLow</option>
+            </select>
+            <div id="Stat5" class="displayStatistic"></div>
+    </div>
+
+    <div id ="Square6" class="Squares" draggable ="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <select class="opcoes" name="stats" id="stats6" selected ="-" style="left: 35%;">
+                <option>-</option>
+                <option>Sector</option>
+                <option>PERatio</option>
+                <option>EPS</option>
+                <option>BookValue</option>
+                <option>SharesOutstanding</option>
+                <option>SharesFloat</option>
+                <option>ShortRatio</option>
+                <option>52WeekHigh</option>
+                <option>52WeekLow</option>
+            </select>
+            <div id="Stat6" class="displayStatistic"></div>
+    </div>
+
+    <div id="AddSquare" class="Squares"><img src="../Imagens/AddSymbol.png" style="margin-left: auto; margin-right: auto; width:250px;height:180px;"></div>
+</div>
+
+<a href="https://clearbit.com">Logos provided by Clearbit</a>
+
+</body>
+<script type="module" src="modules/test.js"></script>
+<script type ="module" src="HomePage.js"></script>
+</html>
