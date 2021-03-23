@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do Galo</title>
+    <link a href="style.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <h1>Jogo do Galo</h1>
+        <hr>
+    <h2><u>Instruções</u></h2>
+        <p>1 - A cada jogador é atribuído um símbolo diferente.</p>
+        <p>2 - Cada jogador tem direito a uma jogada por turno, na qual  escolhe um dos quadrados disponíveis. </p>
+        <p>3 - Vence quem conseguir fazer uma linha contínua de 3 símbolos em qualquer direcção.</p>
+        <hr>
+    <div class="margem1"></div>
+    <div class="margem2"></div>
+    <div class="Anouncer" id = "Anouncer">
+        <p id="PlayerTurn">Press the button Start below!</p>
+    </div>
+    <div class="tabuleiro" id="quadrados">
+        <div class="quadrado" id="quadrado1" ></div>
+        <div class="quadrado" id="quadrado2" ></div>
+        <div class="quadrado" id="quadrado3" ></div>
+        <div class="quadrado" id="quadrado4" ></div>
+        <div class="quadrado" id="quadrado5" ></div>
+        <div class="quadrado" id="quadrado6" ></div>
+        <div class="quadrado" id="quadrado7" ></div>
+        <div class="quadrado" id="quadrado8" ></div>
+        <div class="quadrado" id="quadrado9" ></div>
+    </div>
+    <div id="VictoryLine">
+        <div id="line1stLeft"></div>
+        <div id="line2ndLeft"></div>
+        <div id="line3rdLeft"></div>
+        <div id="line1stTop"></div>
+        <div id="line2ndTop"></div>
+        <div id="line3rdTop"></div>
+        <div id="line1stDiagonal"></div>
+        <div id="line2ndDiagonal"></div>
+    </div>
+    <br>
+    <br>
+    <div id=buttons>
+        <button id="Start">Start</button> <b><u>OR</u></b>  <button id="Restart">Restart</button>
+        <br>
+        <button id=ChangeTurn>Change Player</button>
+    </div>
+        <br>
+    <p id="creditos">Jogo do Galo. <br><u> Projecto de aprendizagem criado por Simão B @2020.</u></p>
+    
+    <script src="script.js"></script>
+</body>
+</html>
