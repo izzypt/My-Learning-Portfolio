@@ -1,4 +1,5 @@
-import {stocksymbols} from './modules/test.js'
+import {stocksymbols , testando} from './modules/test.js'
+import {createTable , addRowToTable, addHeaderToRow, addDataToRow, removeTable, createTableFromObject} from './modules/ConvertingObjects.js';
 
 let cabecalho = document.getElementById("cabecalho");
 let userProfile = document.getElementById("userProfile");
@@ -9,14 +10,40 @@ let searchForm = document.getElementById("SearchForm");
 let searchedName = document.getElementById("companyName");
 let companyImageLink = document.getElementById("companyImage");
 let companyOverviewText = document.getElementById("companyOverview");
-let squareCharts = document.getElementById("squareCharts");
-let opcoes = document.getElementsByClassName("opcoes")
-let opcoesArray = [...opcoes]; 
+let personaliseParagrafo = document.getElementById('personaliseParagrafo');
+let separadoresAnalise = document.getElementById('SeparadorAnalise');
+let overviewDataButton = document.getElementById('overviewDataButton');
+let fundamentalDataButton = document.getElementById('fundamental');
+let calendarSeparadorButton = document.getElementById('calendarSeparadorButton');
+let technicalSeparadorButton = document.getElementById('technicalSeparadorButton')
+let overviewDataContainer = document.getElementById("overviewDataContainer");
+let fundamentalDataContainer = document.getElementById('fundamentalDataContainer');
+let technicalDataContainer = document.getElementById('technicalDataContainer');
+let calendarContainer = document.getElementById('calendarContainer');
+let overviewSelectOptions = document.getElementsByClassName("overviewSelectOptions");
+let incomeStatementOptions = document.getElementById('incomeStatementOption');
+let balanceSheetOptions = document.getElementById('balanceSheetOptions');
+let cashFlowOptions = document.getElementById('cashFlowOptions')
 let companyLogo = document.getElementById("companyLogo");
 let AddSquare = document.getElementById("AddSquare");
 let companySymbol;
-let dragindex = 0;
-let clone = " ";
+let cashFlowInfo
+let balanceSheetInfo;
+let incomeStatementInfo;
+let balanceSheetRadioValue;
+let incomeStatementRadioValue;
+let reqInfoIncomeStatementOptions;
+let reqInfoBalanceSheetOptions;
+let reqInfoCashFlowOptions;
+let cashFlowRadioValue;
+let buttonToShowCFTable = document.getElementById("buttonToShowCFTable");
+let buttonToShowBSTable = document.getElementById("buttonToShowBSTable");
+let buttonToShowISTable = document.getElementById('buttonToShowISTable');
+let removeCfTable = document.getElementById('removeCfTable');
+let removeBsTable = document.getElementById('removeBsTable');
+let removeIsTable = document.getElementById('removeIsTable');
+
+
 
 cabecalho.addEventListener("mouseover", changeToInlineBlock);
 cabecalho.addEventListener("mouseout" , changeToNone);
@@ -42,20 +69,156 @@ searchForm.addEventListener("submit" , function(event)
         changeLogoImage(searchBar.value);
         giveCompanieSymbol(searchBar.value);
         TurnVisible(companyLogo);
-        TurnVisible(squareCharts);
+        TurnVisible(overviewDataContainer);
+        TurnVisible(separadoresAnalise);
+        TurnVisible(personaliseParagrafo);
     }
 )
 
-for(let x = 0; x < opcoes.length; x++) 
+for(let x = 0; x < overviewSelectOptions.length; x++) 
     {
-        opcoes[x].addEventListener("change" , function()
+        overviewSelectOptions[x].addEventListener("change" , function()
         {
-            console.log(opcoes[x].value)
-            getStatistic(companySymbol , opcoes[x].value , opcoes[x])
+            console.log(overviewSelectOptions[x].value)
+            getStatistic(companySymbol , overviewSelectOptions[x].value , overviewSelectOptions[x])
         })
     }
 
+if (incomeStatementOptions)
+    incomeStatementOptions.addEventListener("change" , function()
+    {
+        reqInfoIncomeStatementOptions = incomeStatementOptions.value;
+        incomeStatementRadioValue = document.forms.incomeStatementRadio.incomeStatementRadioName.value;
+        console.log('Income Statement requested info : ' + reqInfoIncomeStatementOptions);
+        console.log('Income statement radio value : ' + incomeStatementRadioValue);
+        getIncomeStatementInfo(companySymbol, reqInfoIncomeStatementOptions, incomeStatementRadioValue );
+    })
+
+if(balanceSheetOptions)
+    balanceSheetOptions.addEventListener('change', function()
+   {
+        reqInfoBalanceSheetOptions = balanceSheetOptions.value;
+        balanceSheetRadioValue = document.forms.balanceSheetRadio.balanceSheetRadioName.value;
+        console.log('Requested info in balance sheet : ' + reqInfoBalanceSheetOptions);
+        console.group('Balance Sheet radio value : ' + balanceSheetRadioValue);
+        getBalanceSheetInfo(companySymbol, reqInfoIncomeStatementOptions, incomeStatementRadioValue )
+   })
+
+if(cashFlowOptions)
+   cashFlowOptions.addEventListener('change' , function()
+   {
+        reqInfoCashFlowOptions = cashFlowOptions.value;
+        cashFlowRadioValue = document.forms.cashFlowRadio.cashFlowRadioName.value
+        console.log('Requested info in Cash Flow : ' + reqInfoCashFlowOptions);
+        console.log('Cash Flow radio value is : ' + cashFlowRadioValue);
+        getCashFlowInfo(companySymbol)
+   })
+
 AddSquare.addEventListener("click", createSquare )
+
+overviewDataButton.addEventListener('click', function()
+{
+    turnDisplayBlock(overviewDataContainer);
+    turnDisplayNone(fundamentalDataContainer);
+    turnDisplayNone(calendarContainer);
+    turnDisplayNone(technicalDataContainer);
+    overviewDataButton.style = "text-decoration: overline black;"
+    fundamentalDataButton.style = "text-decoration: none;";
+    calendarSeparadorButton.style = "text-decoration: none;"
+    technicalSeparadorButton.style = "text-decoration: none;";
+})
+
+fundamentalDataButton.addEventListener('click', function()
+{
+    turnDisplayNone(overviewDataContainer);
+    turnDisplayBlock(fundamentalDataContainer);
+    turnDisplayNone(calendarContainer);
+    turnDisplayNone(technicalDataContainer);
+    overviewDataButton.style = "text-decoration: none;"
+    fundamentalDataButton.style = "text-decoration: overline black;";
+    calendarSeparadorButton.style = "text-decoration: none;"
+    technicalSeparadorButton.style = "text-decoration: none;";
+
+})
+
+technicalSeparadorButton.addEventListener('click' , function ()
+{
+    turnDisplayNone(overviewDataContainer);
+    turnDisplayNone(fundamentalDataContainer);
+    turnDisplayBlock(technicalDataContainer);
+    turnDisplayNone(calendarContainer);
+    overviewDataButton.style = "text-decoration: none;"
+    fundamentalDataButton.style = "text-decoration: none;";
+    calendarSeparadorButton.style = "text-decoration: none;";
+    technicalSeparadorButton.style = "text-decoration: overline black;";
+})
+
+
+
+calendarSeparadorButton.addEventListener('click', function()
+{
+    turnDisplayNone(overviewDataContainer);
+    turnDisplayNone(fundamentalDataContainer);
+    turnDisplayBlock(calendarContainer);
+    turnDisplayNone(technicalDataContainer);
+    overviewDataButton.style = "text-decoration: none;"
+    fundamentalDataButton.style = "text-decoration: none;";
+    calendarSeparadorButton.style = "text-decoration: overline black;";
+    technicalSeparadorButton.style = "text-decoration: none;";
+    
+
+})
+
+buttonToShowISTable.addEventListener('click' , function()
+{
+
+})
+
+buttonToShowBSTable.addEventListener('click', function()
+{
+    balanceSheetRadioValue = document.forms.balanceSheetRadio.balanceSheetRadioName.value;
+
+    let http = new XMLHttpRequest();
+
+    http.open('GET' , "https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.send();
+    http.onreadystatechange = function() 
+    {
+        if (http.readyState == XMLHttpRequest.DONE) 
+        {
+            balanceSheetInfo = JSON.parse(http.responseText);
+            createTableFromObject(balanceSheetInfo[balanceSheetRadioValue][0] , 'generatedBsTable' , balanceSheetTable)
+        }
+    }
+})
+
+removeBsTable.addEventListener('click', function()
+{
+    removeTable('generatedBsTable');
+})
+
+buttonToShowCFTable.addEventListener('click' , function ()
+{
+    cashFlowRadioValue = document.forms.cashFlowRadio.cashFlowRadioName.value
+    
+    let http = new XMLHttpRequest();
+
+    http.open('GET' , "https://www.alphavantage.co/query?function=CASH_FLOW&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.send();
+    http.onreadystatechange = function() 
+    {
+        if (http.readyState == XMLHttpRequest.DONE) 
+        {
+            cashFlowInfo = JSON.parse(http.responseText);
+            createTableFromObject(cashFlowInfo[cashFlowRadioValue][0] , 'generatedCfTable' , cashFlowTable)
+        }
+    }
+})
+
+removeCfTable.addEventListener('click', function()
+{
+    removeTable('generatedCfTable');
+})
 
 function changeToInlineBlock()
 {
@@ -79,6 +242,16 @@ function TurnHidden(element)
     element.style.opacity = 0;
 }
 
+function turnDisplayBlock(element)
+{
+    element.style.display = "block"
+}
+
+function turnDisplayNone(element)
+{
+    element.style.display = 'none';
+}
+
 
 function drag(e)
 {
@@ -96,7 +269,7 @@ function drop(e)
     e.preventDefault();
     clone = e.target.cloneNode(true);
     let data = e.dataTransfer.getData("text");
-    let nodelist = document.getElementById("SquareCharts").childNodes;
+    let nodelist = document.getElementById("overviewDataContainer").childNodes;
     
     for(let i = 0; i < nodelist.length; i++)
     {
@@ -105,8 +278,8 @@ function drop(e)
             dragindex = i
         }
     }
-    document.getElementById("SquareCharts").replaceChild(document.getElementById(data), e.target);
-    document.getElementById("SquareCharts").insertBefore(clone,document.getElementById("SquareCharts").childNodes[dragindex]);
+    document.getElementById("overviewDataContainer").replaceChild(document.getElementById(data), e.target);
+    document.getElementById("overviewDataContainer").insertBefore(clone,document.getElementById("overviewDataContainer").childNodes[dragindex]);
 }
 
 
@@ -170,17 +343,71 @@ function getStatistic(companySymbol , statistic, square)
     console.log(statistic);
 }
 
+function getIncomeStatementInfo(companySymbol, requiredInfo , selectedValue)
+{
+    let http = new XMLHttpRequest();
+
+    http.open('GET' , "https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.send();
+    http.onreadystatechange = function() 
+    {
+        if (http.readyState == XMLHttpRequest.DONE) 
+        {
+            let incomeStatementInfo = JSON.parse(http.responseText);
+            console.log(incomeStatementInfo[incomeStatementRadioValue]);
+            console.log(incomeStatementInfo);
+            document.getElementById('IncomeStatementSelectedValue').innerHTML = 'O valor de ' + reqInfoIncomeStatementOptions + ' é ' + JSON.stringify(incomeStatementInfo[incomeStatementRadioValue][0][reqInfoIncomeStatementOptions]) + ' .';
+            console.log('O valor de ' + reqInfoIncomeStatementOptions + ' é ' + incomeStatementInfo[incomeStatementRadioValue][0][reqInfoIncomeStatementOptions]);
+        }
+    }
+}
+
+function getBalanceSheetInfo(companySymbol, requiredInfo , selectedValue)
+{
+    let http = new XMLHttpRequest();
+
+    http.open('GET' , "https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.send();
+    http.onreadystatechange = function() 
+    {
+        if (http.readyState == XMLHttpRequest.DONE) 
+        {
+            let balanceSheetInfo = JSON.parse(http.responseText);
+            console.log(balanceSheetInfo);
+            document.getElementById('balanceSheetSelectedValue').innerHTML = 'O valor de ' + reqInfoBalanceSheetOptions + ' é ' + JSON.stringify(balanceSheetInfo[balanceSheetRadioValue][0][reqInfoBalanceSheetOptions]) + ' .';
+            console.log('O valor de ' + reqInfoBalanceSheetOptions + ' é ' + balanceSheetInfo[balanceSheetRadioValue][0][reqInfoBalanceSheetOptions]);
+        }
+    }
+}
+
+function getCashFlowInfo(companySymbol, requiredInfo , selectedValue)
+{
+    let http = new XMLHttpRequest();
+
+    http.open('GET' , "https://www.alphavantage.co/query?function=CASH_FLOW&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.send();
+    http.onreadystatechange = function() 
+    {
+        if (http.readyState == XMLHttpRequest.DONE) 
+        {
+            cashFlowInfo = JSON.parse(http.responseText);
+            console.log('Cash Flow info retornada pela API é : ' + cashFlowInfo);
+            document.getElementById('cashFlowSelectedValue').innerHTML = 'O valor de ' + reqInfoCashFlowOptions + ' é ' + JSON.stringify(cashFlowInfo[cashFlowRadioValue][0][reqInfoCashFlowOptions]) + ' .';
+            console.log('O valor de ' + reqInfoCashFlowOptions + ' é ' + cashFlowInfo[cashFlowRadioValue][0][reqInfoCashFlowOptions]);
+        }
+    }
+}
+
 
 function createSquare()
 {
     
-    let container = document.getElementById("squareCharts");
+    let container = document.getElementById("overviewDataContainer");
     let newSquare = document.getElementById("Square1").cloneNode("Square1");
     let addSquare = document.getElementById("AddSquare");
     
     container.removeChild(addSquare);
     container.appendChild(newSquare);
     container.appendChild(addSquare).after(newSquare);
-
 
 }

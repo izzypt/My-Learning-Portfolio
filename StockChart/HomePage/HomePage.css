@@ -67,6 +67,7 @@ body
 
 #ulcabecalho
 {
+    display: block;
     padding : 0px;
 }
 
@@ -137,6 +138,7 @@ form
     overflow: hidden;
     padding: 0 16px;
     font-size: 1rem;
+    font-weight: 600;
 }
 
 #companyOverview
@@ -147,29 +149,37 @@ form
     margin-right: auto;
     max-width: 75%;
     border: 3px solid black;
+    border-radius: 10px;
 }
 
-
-
-#squareCharts
+#mainContainer
 {
-    margin-left: 15%;
-    margin-right: 15%;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    max-width: 90%;
 }
 
-#squareCharts > * {
+#overviewDataContainer
+{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#overviewDataContainer > * {
     vertical-align: middle;
 }
 
 
 
-#AddChart
+#personaliseParagrafo
 {
-    position: relative;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    width: 50%;
+    max-width: 50%;
     padding: 20px;
 
 }
@@ -178,11 +188,15 @@ form
 {
     position: relative;
     display: flex;
+    padding: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 75%;
 }
 
 #SeparadorAnalise ul
 {
-    padding: 0px;
+    padding: 2px;
     margin-left: auto;
     margin-right: auto;
 
@@ -193,7 +207,6 @@ form
     padding : 5px;
     display: inline-block;
     font-weight: bolder;
-    text-decoration: overline black;
 }
 
 #SeparadorAnalise ul li:hover
@@ -201,7 +214,7 @@ form
     background-color: rgb(17, 141, 69, 0.7);
     margin-left: auto;
     margin-right: auto;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 .Squares
@@ -218,7 +231,7 @@ form
     border-radius: 5%;
 }
 
-.opcoes
+.overviewSelectOptions
 {
     position: absolute;
     margin-left: auto;
@@ -344,3 +357,74 @@ form
     align-items: center;
 }
 
+.informacaoFundamental
+{
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    border : 2px solid black;
+    text-align: center;
+}
+
+.informacaoFundamental:hover
+{
+    cursor: pointer;
+    background-color: rgb(17, 141, 69, 0.7) ;
+    height : 400px;
+}
+
+#fundamentalDataContainer
+{
+    display: none;
+    width: 90%;
+    margin: 5px;
+}
+
+#fundamentalDataContainer div
+{
+    margin-top : 10px;
+    padding: 15px;
+}
+
+#technicalDataContainer
+{
+    padding : 2px;
+}
+
+#calendarContainer
+{
+    display: none;
+}
+
+.fundamentalSelectOptions
+{
+    background-color:rgb(17, 141, 69, 0.7) ;
+    font-weight: 650;
+    color: black;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+hr
+{
+    border: 1px solid black;
+}
+
+.fundamentalSelectedValuesBox
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black; 
+    max-width: 75%; 
+    margin-left: auto; 
+    margin-right: auto;
+    padding: 30px;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    height: 100px;
+    border-radius: 5px;
+    text-align: center;
+}
