@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black API</title>
+</head>
+<body style="background-color: black; color: gold; text-align: center;">
+    <h1>Welcome to the Black API</h1>
+
+    <p>Fill out the form :</p>
+    <form method="POST" action="http://localhost:5500/" id="form">
+        <label for="Nome">Nome</label>
+        <input name="nome" type="text">
+        <br>
+        <label for="Email">E-mail</label>
+        <input type="email" name="Email">
+        <br>
+        <label for="Idade">Idade</label>
+        <input type="number" name="Idade" min="0" max="120">
+        <br>
+        <label for="descricao">Descreva o seu pedido:</label>
+        <textarea cols="40" rows="5" name="descricao"></textarea>
+        <br>
+        <button type="submit" id='butaoSubmeter'>Enviar</button>
+    </form>
+</body>
+<script>
+    /*
+    let submitButton = document.getElementById('butaoSubmeter');
+    let form = document.getElementById('form');
+
+    var http = new XMLHttpRequest();
+var url = '';
+var params = 'orem=ipsum&name=binny';
+http.open('POST', url, true);
+
+//Send the proper header information along with the request
+http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+http.onreadystatechange = function() {//Call a function when the state changes.
+    if(http.readyState == 4 && http.status == 200) {
+        alert(http.responseText);
+    }
+}
+http.send(params); */
+</script>
+</html>
