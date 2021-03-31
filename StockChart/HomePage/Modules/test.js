@@ -1,8 +1,8 @@
-export let testando = "Se estás a ler isto é porque tiveste sucesso no teu export e import.. gz!"
+export let testando = "Se estás a ler isto é porque tiveste sucesso no teu export do objecto stoacksymbols.. gz!"
 
 export const stocksymbols = 
 {
-    "A" : "AgilentTechnologies" , 
+    "AgilentTechnologies" : "A" , 
     "Alcoa":"AA",
     "Ares Acquisition":"AAC",
     "Alexandria Agtech/Climate Innovation":"AACE",
