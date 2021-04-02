@@ -33,10 +33,13 @@
         </ul>
         <button id ="closeUserProfile" style="transform: translateX(500%);">Close</button>
     </div>
-
+    <br>
+    <br>
+    <br>
+    <br>
     <form id="SearchForm">
         <label for="searchbar"></label><br>
-        <input type="search" name="searchbar" id="searchbar" placeholder="Apple, Tesla.."><br><br>
+        <input type="search" name="searchbar" id="searchbar" placeholder="Microsoft, Apple, Tesla.."><br><br>
         <button type="submit" class="addToButtons">Search</button>
     </form>
 
@@ -63,19 +66,19 @@
         <li id='fundamental'>Fundamental Data</li>
         <li id='technicalSeparadorButton'>Technical Data</li>
         <li id="calendarSeparadorButton">Calendar</li>
-        <li>Recent News</li>
-        <li>Next Events..</li>
+        <li id="recentNewsSeparador">Recent News</li>
+        <li id="nextEventsSeparador">Next Events..</li>
     </ul>
 </div>
 
 
-<div id="mainContainer">
+<div id="mainContainer" style="display : none">
 
 <div id ="overviewDataContainer" style ="visibility: hidden;">
 
-    <div id="Square1" class="Squares" draggable="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id="Square1" class="Squares">
         <select class="overviewSelectOptions" name="stats" id="stats1" selected ="-" style="left: 35%;">
-            <option>-</option>
+            <option>Select a statistic</option>
             <option>Sector</option>
             <option>PERatio</option>
             <option>EPS</option>
@@ -96,9 +99,9 @@
         <div id="Stat1" class="displayStatistic"></div>
     </div>
 
-    <div id ="Square2" class="Squares" draggable="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id ="Square2" class="Squares">
         <select class="overviewSelectOptions" name="stats" id="stats2" selected ="-" style="left: 35%;">
-            <option>-</option>
+            <option>Select a statistic</option>
             <option>Sector</option>
             <option>PERatio</option>
             <option>EPS</option>
@@ -119,9 +122,9 @@
         <div id="Stat2" class="displayStatistic"></div>
     </div>
 
-    <div id ="Square3" class="Squares" draggable ="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id ="Square3" class="Squares">
         <select class="overviewSelectOptions" name="stats" id="stats3"  selected ="-" style="left: 35%;">
-            <option>-</option>
+            <option>Select a statistic</option>
             <option>Sector</option>
             <option>PERatio</option>
             <option>EPS</option>
@@ -142,9 +145,9 @@
         <div id="Stat3" class="displayStatistic"></div>
     </div>
 
-    <div id ="Square4" class="Squares" draggable ="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id ="Square4" class="Squares">
         <select class="overviewSelectOptions" name="stats" id="stats4" selected ="-" style="left: 35%;">
-            <option>-</option>
+            <option>Select a statistic</option>
             <option>Sector</option>
             <option>PERatio</option>
             <option>EPS</option>
@@ -165,9 +168,9 @@
         <div id="Stat4" class="displayStatistic" ></div>
     </div>
 
-    <div id ="Square5" class="Squares" draggable ="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id ="Square5" class="Squares">
             <select class="overviewSelectOptions" name="stats" id="stats5" selected ="-" style="left: 35%;">
-                <option>-</option>
+                <option>Select a statistic</option>
                 <option>Sector</option>
                 <option>PERatio</option>
                 <option>EPS</option>
@@ -188,9 +191,9 @@
             <div id="Stat5" class="displayStatistic"></div>
     </div>
 
-    <div id ="Square6" class="Squares" draggable ="true" ondragstart="drag(event)" ondragend="dragend()" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <select class="opcoes" name="stats" id="stats6" selected ="-" style="left: 35%;">
-                <option>-</option>
+    <div id ="Square6" class="Squares">
+            <select class="overviewSelectOptions" name="stats" id="stats6" selected ="-" style="left: 35%;">
+                <option>Select a statistic</option>
                 <option>Sector</option>
                 <option>PERatio</option>
                 <option>EPS</option>
@@ -210,8 +213,6 @@
             </select>
             <div id="Stat6" class="displayStatistic"></div>
     </div>
-
-    <div id="AddSquare" class="Squares"><img src="../Imagens/AddSymbol.png" style="margin-left: auto; margin-right: auto; width:250px;height:180px;"></div>
 </div>
 
 <div id='fundamentalDataContainer'>
@@ -221,9 +222,9 @@
 
         <form id="incomeStatementRadio">
             <input type="radio" id="annualReport" value="annualReports" name="incomeStatementRadioName">
-            <label for="annualReport">Annual Report</label>
+            <label for="annualReport">Last Annual Report</label>
             <input type="radio" id="quarterlyReport" value="quarterlyReports" name="incomeStatementRadioName">
-            <label for="quarterlyReport">Quarterly Report</label><br>
+            <label for="quarterlyReport">Last Quarterly Report</label><br>
         </form>
         
         <br>
@@ -242,7 +243,7 @@
         </select>
         <br><br>
         <button class="addToButtons" type="button" id="buttonToShowISTable">Show Table</button> <button class="addToButtons" type="button" id="removeIsTable">Remove table</button>
-        <div id="incomeStatementTable"></div>
+        <div id="incomeStatementTable" style="display: flex; justify-content: center;"></div>
     </div>
 
     <div id="balanceSheet" style="border : 4px solid black;"><h2>Balance Sheet</h2><hr>
@@ -251,9 +252,9 @@
 
         <form id="balanceSheetRadio">
             <input type="radio" id="BSAnnualReport" name="balanceSheetRadioName" value="annualReports">
-            <label for="balanceSheetRadio">Annual Report</label>
+            <label for="balanceSheetRadio">Last Annual Report</label>
             <input type="radio" id="BSQarterlyReport" name="balanceSheetRadioName" value="quarterlyReports">
-            <label for="balanceSheetRadio">Quarterly Report</label><br>
+            <label for="balanceSheetRadio">Last Quarterly Report</label><br>
         </form>
         
         <br>
@@ -284,9 +285,9 @@
 
         <form id="cashFlowRadio">
             <input type="radio" id="cfAnnualReport" name="cashFlowRadioName" value="annualReports">
-            <label for="cashFlowRadioName">Annual Report</label>
+            <label for="cashFlowRadioName">Last Annual Report</label>
             <input type="radio" id="cfQuarterlyReport" name="cashFlowRadioName" value="quarterlyReports">
-            <label for="cashFlowRadioName">Quarterly Report</label><br>
+            <label for="cashFlowRadioName">Last Quarterly Report</label><br>
         </form>
 
         <br>
@@ -314,7 +315,16 @@
 
 </div>
 
-<div id ="technicalDataContainer"></div>
+<div id ="technicalDataContainer">
+    <div id="chartTimePeriodButtons">
+        <span class ="addToButtons">1 Day</span> <span class ="addToButtons">5 Day</span><span class ="addToButtons">1 Month</span><span class ="addToButtons">3 Month</span><span class ="addToButtons">1 Year</span><span class ="addToButtons">5 Year</span>
+    </div>
+    <br>
+    <canvas id="myChart">
+       
+    </canvas>
+
+</div>
 
 <div id="calendarContainer">
     <div style="width: 400px; height: 400px; border : solid pink 2px;"></div>
@@ -322,13 +332,15 @@
 
 <div id="recentNewsContainer"></div>
 
-<div id="nextEvent  Container"></div>
+<div id="nextEventContainer"></div>
 
 </div>
 
-<a href="https://clearbit.com" style="text-align: center;">Logos by Clearbit</a>
-
+<div id = "footer" style=" text-align: center; background-color: black; position: fixed; bottom: 0px; width: 100%; margin-top:5px;">
+    <a href="https://clearbit.com" style="color: white;">Logos by Clearbit</a>
+</div>
 </body>
+</html>
 <script type="module" src="modules/test.js"></script>
 <script type ="module" src="HomePage.js"></script>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>

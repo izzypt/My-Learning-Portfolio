@@ -11,11 +11,13 @@ let searchedName = document.getElementById("companyName");
 let companyImageLink = document.getElementById("companyImage");
 let companyOverviewText = document.getElementById("companyOverview");
 let personaliseParagrafo = document.getElementById('personaliseParagrafo');
+let mainContainer = document.getElementById('mainContainer');
 let separadoresAnalise = document.getElementById('SeparadorAnalise');
 let overviewDataButton = document.getElementById('overviewDataButton');
 let fundamentalDataButton = document.getElementById('fundamental');
 let calendarSeparadorButton = document.getElementById('calendarSeparadorButton');
-let technicalSeparadorButton = document.getElementById('technicalSeparadorButton')
+let technicalSeparadorButton = document.getElementById('technicalSeparadorButton');
+let recentNewsSeparador = document.getElementById('recentNewsSeparador');
 let overviewDataContainer = document.getElementById("overviewDataContainer");
 let fundamentalDataContainer = document.getElementById('fundamentalDataContainer');
 let technicalDataContainer = document.getElementById('technicalDataContainer');
@@ -27,7 +29,7 @@ let cashFlowOptions = document.getElementById('cashFlowOptions')
 let companyLogo = document.getElementById("companyLogo");
 let AddSquare = document.getElementById("AddSquare");
 let companySymbol;
-let cashFlowInfo
+let cashFlowInfo;
 let balanceSheetInfo;
 let incomeStatementInfo;
 let balanceSheetRadioValue;
@@ -44,9 +46,40 @@ let removeBsTable = document.getElementById('removeBsTable');
 let removeIsTable = document.getElementById('removeIsTable');
 
 
-
 cabecalho.addEventListener("mouseover", changeToInlineBlock);
 cabecalho.addEventListener("mouseout" , changeToNone);
+
+function changeToInlineBlock()
+{
+    document.getElementById("ulcabecalho").style.display = "inline-block";
+}
+
+function changeToNone()
+{
+    document.getElementById("ulcabecalho").style.display = "none";
+}
+
+function TurnVisible(element)
+{
+    element.style.visibility = "visible";
+    element.style.opacity = 1;
+}
+
+function TurnHidden(element)
+{
+    element.style.visibility = "hidden";
+    element.style.opacity = 0;
+}
+
+function turnDisplayBlock(element)
+{
+    element.style.display = "block"
+}
+
+function turnDisplayNone(element)
+{
+    element.style.display = 'none';
+}
 
 openProfileButton.addEventListener("click", function()
     {
@@ -61,60 +94,21 @@ closeProfileButton.addEventListener("click", function()
             TurnHidden(userProfile)
     }
 )
-
 searchForm.addEventListener("submit" , function(event)
     {
         event.preventDefault(); // Evita a submissão normal do formulário
-        searchedName.innerHTML = searchBar.value;  
+        searchedName.innerText = searchBar.value;  
         changeLogoImage(searchBar.value);
         giveCompanieSymbol(searchBar.value);
         TurnVisible(companyLogo);
         TurnVisible(overviewDataContainer);
         TurnVisible(separadoresAnalise);
         TurnVisible(personaliseParagrafo);
+        turnDisplayBlock(mainContainer);
+        console.log('This should come first')
+        objectForChart();
     }
 )
-
-for(let x = 0; x < overviewSelectOptions.length; x++) 
-    {
-        overviewSelectOptions[x].addEventListener("change" , function()
-        {
-            console.log(overviewSelectOptions[x].value)
-            getStatistic(companySymbol , overviewSelectOptions[x].value , overviewSelectOptions[x])
-        })
-    }
-
-if (incomeStatementOptions)
-    incomeStatementOptions.addEventListener("change" , function()
-    {
-        reqInfoIncomeStatementOptions = incomeStatementOptions.value;
-        incomeStatementRadioValue = document.forms.incomeStatementRadio.incomeStatementRadioName.value;
-        console.log('Income Statement requested info : ' + reqInfoIncomeStatementOptions);
-        console.log('Income statement radio value : ' + incomeStatementRadioValue);
-        getIncomeStatementInfo(companySymbol, reqInfoIncomeStatementOptions, incomeStatementRadioValue );
-    })
-
-if(balanceSheetOptions)
-    balanceSheetOptions.addEventListener('change', function()
-   {
-        reqInfoBalanceSheetOptions = balanceSheetOptions.value;
-        balanceSheetRadioValue = document.forms.balanceSheetRadio.balanceSheetRadioName.value;
-        console.log('Requested info in balance sheet : ' + reqInfoBalanceSheetOptions);
-        console.group('Balance Sheet radio value : ' + balanceSheetRadioValue);
-        getBalanceSheetInfo(companySymbol, reqInfoIncomeStatementOptions, incomeStatementRadioValue )
-   })
-
-if(cashFlowOptions)
-   cashFlowOptions.addEventListener('change' , function()
-   {
-        reqInfoCashFlowOptions = cashFlowOptions.value;
-        cashFlowRadioValue = document.forms.cashFlowRadio.cashFlowRadioName.value
-        console.log('Requested info in Cash Flow : ' + reqInfoCashFlowOptions);
-        console.log('Cash Flow radio value is : ' + cashFlowRadioValue);
-        getCashFlowInfo(companySymbol)
-   })
-
-AddSquare.addEventListener("click", createSquare )
 
 overviewDataButton.addEventListener('click', function()
 {
@@ -169,9 +163,66 @@ calendarSeparadorButton.addEventListener('click', function()
 
 })
 
+for(let x = 0; x < overviewSelectOptions.length; x++) 
+    {
+        overviewSelectOptions[x].addEventListener("change" , function()
+        {
+            console.log(overviewSelectOptions[x].value)
+            getOverviewStatistic(companySymbol , overviewSelectOptions[x].value , overviewSelectOptions[x])
+        })
+    }
+
+if (incomeStatementOptions)
+    incomeStatementOptions.addEventListener("change" , function()
+    {
+        reqInfoIncomeStatementOptions = incomeStatementOptions.value;
+        incomeStatementRadioValue = document.forms.incomeStatementRadio.incomeStatementRadioName.value;
+        console.log('Income Statement requested info : ' + reqInfoIncomeStatementOptions);
+        console.log('Income statement radio value : ' + incomeStatementRadioValue);
+        getIncomeStatementInfo(companySymbol, reqInfoIncomeStatementOptions, incomeStatementRadioValue );
+    })
+
+if(balanceSheetOptions)
+    balanceSheetOptions.addEventListener('change', function()
+   {
+        reqInfoBalanceSheetOptions = balanceSheetOptions.value;
+        balanceSheetRadioValue = document.forms.balanceSheetRadio.balanceSheetRadioName.value;
+        console.log('Requested info in balance sheet : ' + reqInfoBalanceSheetOptions);
+        console.group('Balance Sheet radio value : ' + balanceSheetRadioValue);
+        getBalanceSheetInfo(companySymbol, reqInfoIncomeStatementOptions, incomeStatementRadioValue )
+   })
+
+if(cashFlowOptions)
+   cashFlowOptions.addEventListener('change' , function()
+   {
+        reqInfoCashFlowOptions = cashFlowOptions.value;
+        cashFlowRadioValue = document.forms.cashFlowRadio.cashFlowRadioName.value
+        console.log('Requested info in Cash Flow : ' + reqInfoCashFlowOptions);
+        console.log('Cash Flow radio value is : ' + cashFlowRadioValue);
+        getCashFlowInfo(companySymbol)
+   })
+
 buttonToShowISTable.addEventListener('click' , function()
 {
+    incomeStatementRadioValue = document.forms.incomeStatementRadio.incomeStatementRadioName.value;
 
+    let http = new XMLHttpRequest();
+
+    http.open('GET' , "https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.send();
+    http.onreadystatechange = function() 
+    {
+        if (http.readyState == XMLHttpRequest.DONE) 
+        {
+            incomeStatementInfo = JSON.parse(http.responseText);
+            createTableFromObject(incomeStatementInfo[incomeStatementRadioValue][0] , 'generatedIsTable' , incomeStatementTable)
+        }
+    }
+})
+
+removeIsTable.addEventListener('click', function()
+{
+    removeTable('generatedIsTable');
 })
 
 buttonToShowBSTable.addEventListener('click', function()
@@ -220,77 +271,13 @@ removeCfTable.addEventListener('click', function()
     removeTable('generatedCfTable');
 })
 
-function changeToInlineBlock()
-{
-    document.getElementById("ulcabecalho").style.display = "inline-block";
-}
-
-function changeToNone()
-{
-    document.getElementById("ulcabecalho").style.display = "none";
-}
-
-function TurnVisible(element)
-{
-    element.style.visibility = "visible";
-    element.style.opacity = 1;
-}
-
-function TurnHidden(element)
-{
-    element.style.visibility = "hidden";
-    element.style.opacity = 0;
-}
-
-function turnDisplayBlock(element)
-{
-    element.style.display = "block"
-}
-
-function turnDisplayNone(element)
-{
-    element.style.display = 'none';
-}
-
-
-function drag(e)
-{
-    e.dataTransfer.setData("text", e.target.id); //setting the id of the div containing Note1 for type “text” via setData() of the DataTransfer object. DataTransfer object is used to hold the data that is being dragged during a drag and drop operation.
-}
-
-function allowDrop(e)
-{
-    e.preventDefault();
-}
-
-
-function drop(e)
-{
-    e.preventDefault();
-    clone = e.target.cloneNode(true);
-    let data = e.dataTransfer.getData("text");
-    let nodelist = document.getElementById("overviewDataContainer").childNodes;
-    
-    for(let i = 0; i < nodelist.length; i++)
-    {
-        if (nodelist[i].id === data)
-        {
-            dragindex = i
-        }
-    }
-    document.getElementById("overviewDataContainer").replaceChild(document.getElementById(data), e.target);
-    document.getElementById("overviewDataContainer").insertBefore(clone,document.getElementById("overviewDataContainer").childNodes[dragindex]);
-}
-
-
-
 function changeLogoImage(str)
 { 
     
     companyImageLink.src = "https://logo.clearbit.com/" + str + ".com"
     
     companyImageLink.addEventListener("error" , function (){ 
-        searchedName.innerHTML = "Sorry, we could not find  a company with that name"
+        searchedName.innerHTML = "Sorry, we could not find  a logo with that name"
      })
 }
 
@@ -323,7 +310,7 @@ function companyOverview(symbol)
     }
 }
 
-function getStatistic(companySymbol , statistic, square)
+function getOverviewStatistic(companySymbol , statistic, square)
 {
 
     let http = new XMLHttpRequest();
@@ -338,8 +325,6 @@ function getStatistic(companySymbol , statistic, square)
             square.nextSibling.nextSibling.innerHTML = companyInfo[statistic];
         }
     }
-    
-
     console.log(statistic);
 }
 
@@ -399,15 +384,123 @@ function getCashFlowInfo(companySymbol, requiredInfo , selectedValue)
 }
 
 
-function createSquare()
-{
-    
-    let container = document.getElementById("overviewDataContainer");
-    let newSquare = document.getElementById("Square1").cloneNode("Square1");
-    let addSquare = document.getElementById("AddSquare");
-    
-    container.removeChild(addSquare);
-    container.appendChild(newSquare);
-    container.appendChild(addSquare).after(newSquare);
+var ctx = document.getElementById('myChart').getContext('2d');
+let arrayOfMonths = [];
+let arrayOfPricePerMonth = [];
 
+let arrayOfDays = [];
+let arrayOfPricePerDay = [];
+
+function objectForChart()
+{
+    let http = new XMLHttpRequest();
+
+    http.open('GET' , 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=' + companySymbol + '&apikey=NK2X3UYDTIVZTR0Q');
+    http.send();
+    http.onreadystatechange = function() 
+    {
+        if (http.readyState == XMLHttpRequest.DONE) 
+        {
+            let responseObject = JSON.parse(http.response);
+
+            for(let month in responseObject['Monthly Time Series'] )
+            {
+                arrayOfMonths.push(month);
+                arrayOfPricePerMonth.push(responseObject['Monthly Time Series'][month]['4. close']);
+            }
+            console.log('This should come 2nd');
+            //displayChart();
+        }
+    }
 }
+
+    function displayChart(x, y)
+    {   
+        let numeroDeMeses = arrayOfMonths.slice(x,y)
+        let precoDosMeses = arrayOfPricePerMonth.slice(x,y)
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+        
+            // The data for our dataset
+            data: {
+                labels: numeroDeMeses.reverse(),
+                datasets: [{
+                    label: searchBar.value + ' (Close Price of the Month)',
+                    backgroundColor: 'rgba(17, 141, 69, 0.8)',
+                    borderColor: 'black',
+                    data: precoDosMeses.reverse(),
+                }]
+            },
+        
+            // Configuration options go here
+            options: {}
+        });
+    }
+
+    let chartTimePeriodButtons = document.getElementById('chartTimePeriodButtons').children
+
+    for(let x = 0; x < chartTimePeriodButtons.length; x++) 
+    {
+        chartTimePeriodButtons[x].addEventListener("click" , function(event)
+        {
+
+            if (event.target.innerText == '1 Day')
+               console.log('Work here later')
+            else if (event.target.innerText == '5 Day')
+                console.log('Work here later')
+            else if (event.target.innerText == '1 Month')
+                displayDailyChart(0, 30)
+            else if(event.target.innerText == '3 Month')
+                displayDailyChart(0, 90)
+            else if(event.target.innerText == '1 Year')
+                displayChart(0, 12)
+            else if(event.target.innerText == '5 Year')
+                displayChart(0, 60)
+        })
+    }
+
+    function displayDailyChart(x, y)
+    {   
+        let http = new XMLHttpRequest();
+
+        http.open('GET' , 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+ companySymbol + '&apikey=NK2X3UYDTIVZTR0Q');
+        http.send();
+        http.onreadystatechange = function() 
+        {
+            if (http.readyState == XMLHttpRequest.DONE) 
+            {
+                let responseObject = JSON.parse(http.response);
+
+                for(let day in responseObject['Time Series (Daily)'] )
+                {
+                    arrayOfDays.push(day);
+                    arrayOfPricePerDay.push(responseObject['Time Series (Daily)'][day]['4. close']);
+                }
+            console.log('This is the displayDailyChart function');
+            //displayChart();
+            }
+        }
+    
+        let numeroDeDias = arrayOfDays.slice(x,y)
+        let precoDosDias = arrayOfPricePerDay.slice(x,y)
+        let chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+        
+            // The data for our dataset
+            data: {
+                labels: numeroDeDias.reverse(x , y),
+                datasets: [{
+                    label: searchBar.value + ' (Closing Price of the day)',
+                    backgroundColor: 'rgba(17, 141, 69, 0.8)',
+                    borderColor: 'black',
+                    data: precoDosDias.reverse(x, y),
+                }]
+            },
+        
+            // Configuration options go here
+            options: {}
+        });
+    
+    }

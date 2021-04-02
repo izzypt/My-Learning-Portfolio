@@ -6,9 +6,13 @@ body
 .cabecalho
 {
     display: block;
+    position: fixed;
     text-align: center;
-    background-color: rgb(17, 141, 69, 0.7);
+    background-color: rgba(17, 141, 69, 0.9);
     text-align : center;
+    width: 100%;
+    z-index: 999;
+
 }
 
 #titulo
@@ -17,7 +21,7 @@ body
     cursor: pointer;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size: 25px;
-    letter-spacing: 15px;
+    letter-spacing: 5px;
     word-spacing: 5px;
     color: #000000;
     font-weight: 900;
@@ -99,10 +103,12 @@ form
     text-align : center;
 }
 
-#Searchbar
+#searchbar
 {
-    border-radius: 50%;
     padding: 5px;
+    width: 25%;
+    text-align: center;
+    border-radius: 5px;
 }
 
 #companyLogo
@@ -132,13 +138,16 @@ form
 
 .addToButtons
 {
-    background-color: rgb(17, 141, 69, 0.7);
+    background-color: rgb(17, 141, 69, 0.8);
     border-radius: 4px;
     cursor: pointer;
     overflow: hidden;
     padding: 0 16px;
     font-size: 1rem;
     font-weight: 600;
+    border: 2px solid black;
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
 #companyOverview
@@ -390,7 +399,7 @@ form
 
 #technicalDataContainer
 {
-    padding : 2px;
+    display : none;
 }
 
 #calendarContainer
