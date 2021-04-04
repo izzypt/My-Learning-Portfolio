@@ -11,13 +11,9 @@ let searchedName = document.getElementById("companyName");
 let companyImageLink = document.getElementById("companyImage");
 let companyOverviewText = document.getElementById("companyOverview");
 let personaliseParagrafo = document.getElementById('personaliseParagrafo');
-let mainContainer = document.getElementById('mainContainer');
 let separadoresAnalise = document.getElementById('SeparadorAnalise');
-let overviewDataButton = document.getElementById('overviewDataButton');
-let fundamentalDataButton = document.getElementById('fundamental');
-let calendarSeparadorButton = document.getElementById('calendarSeparadorButton');
-let technicalSeparadorButton = document.getElementById('technicalSeparadorButton');
-let recentNewsSeparador = document.getElementById('recentNewsSeparador');
+let ulSeparadoresDeAnalise = document.getElementById('ulSeparadoresDeAnalise').children;
+let mainContainer = document.getElementById('mainContainer');
 let overviewDataContainer = document.getElementById("overviewDataContainer");
 let fundamentalDataContainer = document.getElementById('fundamentalDataContainer');
 let technicalDataContainer = document.getElementById('technicalDataContainer');
@@ -27,7 +23,6 @@ let incomeStatementOptions = document.getElementById('incomeStatementOption');
 let balanceSheetOptions = document.getElementById('balanceSheetOptions');
 let cashFlowOptions = document.getElementById('cashFlowOptions')
 let companyLogo = document.getElementById("companyLogo");
-let AddSquare = document.getElementById("AddSquare");
 let companySymbol;
 let cashFlowInfo;
 let balanceSheetInfo;
@@ -110,58 +105,68 @@ searchForm.addEventListener("submit" , function(event)
     }
 )
 
-overviewDataButton.addEventListener('click', function()
-{
-    turnDisplayBlock(overviewDataContainer);
-    turnDisplayNone(fundamentalDataContainer);
-    turnDisplayNone(calendarContainer);
-    turnDisplayNone(technicalDataContainer);
-    overviewDataButton.style = "text-decoration: overline black;"
-    fundamentalDataButton.style = "text-decoration: none;";
-    calendarSeparadorButton.style = "text-decoration: none;"
-    technicalSeparadorButton.style = "text-decoration: none;";
-})
-
-fundamentalDataButton.addEventListener('click', function()
-{
-    turnDisplayNone(overviewDataContainer);
-    turnDisplayBlock(fundamentalDataContainer);
-    turnDisplayNone(calendarContainer);
-    turnDisplayNone(technicalDataContainer);
-    overviewDataButton.style = "text-decoration: none;"
-    fundamentalDataButton.style = "text-decoration: overline black;";
-    calendarSeparadorButton.style = "text-decoration: none;"
-    technicalSeparadorButton.style = "text-decoration: none;";
-
-})
-
-technicalSeparadorButton.addEventListener('click' , function ()
-{
-    turnDisplayNone(overviewDataContainer);
-    turnDisplayNone(fundamentalDataContainer);
-    turnDisplayBlock(technicalDataContainer);
-    turnDisplayNone(calendarContainer);
-    overviewDataButton.style = "text-decoration: none;"
-    fundamentalDataButton.style = "text-decoration: none;";
-    calendarSeparadorButton.style = "text-decoration: none;";
-    technicalSeparadorButton.style = "text-decoration: overline black;";
-})
-
-
-
-calendarSeparadorButton.addEventListener('click', function()
-{
-    turnDisplayNone(overviewDataContainer);
-    turnDisplayNone(fundamentalDataContainer);
-    turnDisplayBlock(calendarContainer);
-    turnDisplayNone(technicalDataContainer);
-    overviewDataButton.style = "text-decoration: none;"
-    fundamentalDataButton.style = "text-decoration: none;";
-    calendarSeparadorButton.style = "text-decoration: overline black;";
-    technicalSeparadorButton.style = "text-decoration: none;";
-    
-
-})
+for (let y = 0; y < ulSeparadoresDeAnalise.length ; y++)
+    ulSeparadoresDeAnalise[y].addEventListener('click' , function(event){
+        for (let x = 0; x < ulSeparadoresDeAnalise.length; x++)
+            if (ulSeparadoresDeAnalise[x] == event.target)
+            {
+                ulSeparadoresDeAnalise[x].style = "text-decoration: overline black;";
+                console.log(ulSeparadoresDeAnalise[x].id)
+                switch(ulSeparadoresDeAnalise[x].id)
+                {
+                    case 'overviewDataButton' :
+                        turnDisplayBlock(overviewDataContainer);
+                        turnDisplayNone(fundamentalDataContainer);
+                        turnDisplayNone(technicalDataContainer);
+                        turnDisplayNone(calendarContainer);
+                        turnDisplayNone(recentNewsContainer);
+                        turnDisplayNone(nextEventContainer);
+                        break;
+                    case 'fundamental' :
+                        turnDisplayNone(overviewDataContainer);
+                        turnDisplayBlock(fundamentalDataContainer);
+                        turnDisplayNone(technicalDataContainer);
+                        turnDisplayNone(calendarContainer);
+                        turnDisplayNone(recentNewsContainer);
+                        turnDisplayNone(nextEventContainer);
+                        break;
+                    case 'technicalSeparadorButton' :
+                        turnDisplayNone(overviewDataContainer);
+                        turnDisplayNone(fundamentalDataContainer);
+                        turnDisplayBlock(technicalDataContainer);
+                        turnDisplayNone(calendarContainer);
+                        turnDisplayNone(recentNewsContainer);
+                        turnDisplayNone(nextEventContainer);
+                        break;
+                    case 'calendarSeparadorButton' :
+                        turnDisplayNone(overviewDataContainer);
+                        turnDisplayNone(fundamentalDataContainer);
+                        turnDisplayNone(technicalDataContainer);
+                        turnDisplayBlock(calendarContainer);
+                        turnDisplayNone(recentNewsContainer);
+                        turnDisplayNone(nextEventContainer);
+                        break;
+                    case 'recentNewsSeparador' :
+                        turnDisplayNone(overviewDataContainer);
+                        turnDisplayNone(fundamentalDataContainer);
+                        turnDisplayNone(technicalDataContainer);
+                        turnDisplayNone(calendarContainer);
+                        turnDisplayBlock(recentNewsContainer);
+                        turnDisplayNone(nextEventContainer);
+                        break;
+                    case 'nextEventsSeparador' :
+                        turnDisplayNone(overviewDataContainer);
+                        turnDisplayNone(fundamentalDataContainer);
+                        turnDisplayNone(technicalDataContainer);
+                        turnDisplayNone(calendarContainer);
+                        turnDisplayNone(recentNewsContainer);
+                        turnDisplayBlock(nextEventContainer);
+                        break;
+                }
+            }
+            else
+                ulSeparadoresDeAnalise[x].style = "text-decoration: none;";
+    })
 
 for(let x = 0; x < overviewSelectOptions.length; x++) 
     {
@@ -504,3 +509,20 @@ function objectForChart()
         });
     
     }
+
+ /*   const data = null;
+
+const xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		console.log(this.responseText);
+	}
+});
+
+xhr.open("GET", "https://yahoo-finance-low-latency.p.rapidapi.com/v2/finance/news?symbols=PLUG");
+xhr.setRequestHeader("x-rapidapi-key", "9376885f11msh877c925bce2ac1ep1bc7e9jsnf2fba18f7946");
+xhr.setRequestHeader("x-rapidapi-host", "yahoo-finance-low-latency.p.rapidapi.com");
+
+xhr.send(data);*/

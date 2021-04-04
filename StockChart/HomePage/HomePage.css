@@ -387,8 +387,10 @@ form
 #fundamentalDataContainer
 {
     display: none;
-    width: 90%;
+    width: 85%;
     margin: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #fundamentalDataContainer div
@@ -405,6 +407,10 @@ form
 #calendarContainer
 {
     display: none;
+    width: 85%;
+    margin: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .fundamentalSelectOptions
