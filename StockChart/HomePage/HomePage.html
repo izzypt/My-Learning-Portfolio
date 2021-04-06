@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link a href="HomePage.css" type="text/css" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.css'>
     <title>HomePage - StockChart</title>
 </head>
 <body>
@@ -52,7 +53,7 @@
             <button class = "addToButtons" id="addToWatchList">Add to my WatchList</button>
             <button class = "addToButtons" id="addToNews">Add to my News</button>
         </div> 
-        <h2 style ="text-align: center;">Overview</h2>
+        <h2 style ="text-align: center;"><u>Overview</u></h2>
 
         <div id="companyOverview"></div>
     </div>
@@ -327,20 +328,120 @@
 </div>
 
 <div id="calendarContainer">
-    <div style="width: 400px; height: 400px; border : solid pink 2px;"></div>
+    <div id='calendar'></div>
 </div>
 
-<div id="recentNewsContainer"></div>
+<div id="recentNewsContainer">
+    
+    <div class="pressReleasesContainer" id ="pressReleasesContainer">
+
+        <div id=pressReleaseTitle class="pressReleasesTitle">If you're reading this your new hasn't loaded correctly</div>
+
+        <div id="publishedDate" class="publishDate">Published Date</div>
+
+        <div id='pressReleaseContentContainer'>
+            <div id="pressReleaseContent" class="pressReleaseInfo"></div>
+
+            <br>
+            <div id="pressReleaseButtonContainer" style = "margin : 5px;">
+                <button id="pressReleaseContentButton" type="button" class="addToButtons">Read more...</button>
+                <button id="closePressReleaseContent" class="addToButtons">Close</button>
+            </div>
+            <br>
+
+        </div>
+
+    </div>
+
+    <div class="pressReleasesContainer" id ="pressReleasesContainer2">
+
+        <div id="pressReleaseTitle2" class="pressReleasesTitle">If you're reading this your new hasn't loaded yet..</div>
+       
+        <div id="publishedDate2" class="publishDate">Published Date</div>
+
+        <div id='pressReleaseContentContainer2'>
+            <div id="pressReleaseContent2" class="pressReleaseInfo"></div>
+
+            <br>
+            <div id="pressReleaseButtonContainer2" style = "margin : 5px;"></div>
+            <button id="readMoreButton" type="button" class="addToButtons">Read more...</button>
+            <button id="closePressReleaseContent2" class="addToButtons">Close</button>
+            </div>
+            <br>
+    </div>
+
+    <div class="pressReleasesContainer" id ="pressReleasesContainer3">
+
+        <div id="pressReleaseTitle3" class="pressReleasesTitle">If you're reading this your new hasn't loaded yet..</div>
+
+        <div id="publishedDate3" class="publishDate">Published Date</div>
+
+        <div id='pressReleaseContentContainer3'>
+
+            <div id="pressReleaseContent3" class="pressReleaseInfo"></div>
+            
+            <br>
+            <div id="pressReleaseButtonContainer3" style = "margin : 5px;">
+                <button id="readMoreButton3" type="button" class="addToButtons">Read more...</button>
+                <button id="closePressReleaseContent3" class="addToButtons">Close</button>
+            </div>
+            <br>
+
+        </div>
+
+    </div>
+
+    <div class="pressReleasesContainer" id ="pressReleasesContainer4">
+
+        <div id="pressReleaseTitle_4" class="pressReleasesTitle">If you're reading this your new hasn't loaded yet..</div>
+
+        <div id="publishedDate_4" class="publishDate">Published Date</div>
+       
+        <div id='pressReleaseContentContainer_4'>
+
+            <div id="pressReleaseContent_4" class="pressReleaseInfo"></div>
+            
+            <br>
+            <div id="pressReleaseButtonContainer4" style = "margin : 5px;"></div>
+            <button id="readMoreButton4" type="button" class="addToButtons">Read more...</button>
+            <button id="closePressReleaseContent4" class="addToButtons">Close</button>
+            </div>
+            <br>
+    </div>
+
+    <div class="pressReleasesContainer" id ="pressReleasesContainer5">
+        <div id="pressReleaseTitle_5" class="pressReleasesTitle">If you're reading this your new hasn't loaded yet..</div>
+
+        <div id="publishedDate_5" class="publishDate">Published Date</div>
+
+        <div id='pressReleaseContentContainer_5'>
+
+            <div id="pressReleaseContent_5" class="pressReleaseInfo"></div>
+            
+            <br>
+            <div id="pressReleaseButtonContainer5" style = "margin : 5px;"></div>
+            <button id="readMoreButton5" type="button" class="addToButtons">Read more...</button>
+            <button id="closePressReleaseContent5" class="addToButtons">Close</button>
+            </div>
+            <br>
+    </div>
+
+</div>
 
 <div id="nextEventContainer"></div>
 
 </div>
 
-<div id = "footer" style=" text-align: center; background-color: black; position: fixed; bottom: 0px; width: 100%; margin-top:5px;">
+<div id = "footer" style=" text-align: center; background-color: black; position: fixed; bottom: 0px; width: 100%; margin-top:5px; z-index: 999;">
     <a href="https://clearbit.com" style="color: white;">Logos by Clearbit</a>
 </div>
 </body>
 </html>
-<script type="module" src="modules/test.js"></script>
-<script type ="module" src="HomePage.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src='https://code.jquery.com/jquery-1.11.3.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.min.js"></script>
+<script type="module" src="./modules/test.js"></script>
+<script type ="module" src="HomePage.js"></script>
+<script type="module" src="./modules/CSVtoJSON.js"></script>

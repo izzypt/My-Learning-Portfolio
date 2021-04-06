@@ -1,5 +1,6 @@
 import {stocksymbols , testando} from './modules/test.js'
 import {createTable , addRowToTable, addHeaderToRow, addDataToRow, removeTable, createTableFromObject} from './modules/ConvertingObjects.js';
+import {CSVtoJSON} from './modules/CSVtoJSON.js'
 
 let cabecalho = document.getElementById("cabecalho");
 let userProfile = document.getElementById("userProfile");
@@ -7,7 +8,7 @@ let openProfileButton = document.getElementById("profileButton");
 let closeProfileButton = document.getElementById("closeUserProfile");
 let searchBar = document.getElementById("searchbar");
 let searchForm = document.getElementById("SearchForm");
-let searchedName = document.getElementById("companyName");
+let searchedCompanyName = document.getElementById("companyName");
 let companyImageLink = document.getElementById("companyImage");
 let companyOverviewText = document.getElementById("companyOverview");
 let personaliseParagrafo = document.getElementById('personaliseParagrafo');
@@ -92,7 +93,7 @@ closeProfileButton.addEventListener("click", function()
 searchForm.addEventListener("submit" , function(event)
     {
         event.preventDefault(); // Evita a submissão normal do formulário
-        searchedName.innerText = searchBar.value;  
+        searchedCompanyName.innerText = searchBar.value;  
         changeLogoImage(searchBar.value);
         giveCompanieSymbol(searchBar.value);
         TurnVisible(companyLogo);
@@ -100,10 +101,56 @@ searchForm.addEventListener("submit" , function(event)
         TurnVisible(separadoresAnalise);
         TurnVisible(personaliseParagrafo);
         turnDisplayBlock(mainContainer);
-        console.log('This should come first')
         objectForChart();
     }
 )
+
+function giveCompanieSymbol(name)
+{
+    if (stocksymbols.hasOwnProperty(name))
+    {
+        companySymbol = stocksymbols[name];
+        companyOverview(companySymbol);
+    }
+    else
+        companyOverviewText.innerText = "We couldn't find an overview. Try different name and remove/add white space and special Characters.";
+}
+
+function companyOverview(companySymbol)
+{
+    let http = new XMLHttpRequest();
+
+    http.open("GET" , "https://www.alphavantage.co/query?function=OVERVIEW&symbol="+ companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.send();
+    http.onreadystatechange = function() 
+    {
+        if (http.readyState == XMLHttpRequest.DONE) 
+        {
+            let companyInfo = JSON.parse(http.responseText);
+            companyOverviewText.innerHTML = companyInfo.Description;
+        }
+    }
+}
+
+function getOverviewStatistic(companySymbol , statistic, square)
+{
+
+    let http = new XMLHttpRequest();
+
+    http.open("GET" , "https://www.alphavantage.co/query?function=OVERVIEW&symbol="+ companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.send();
+    http.onreadystatechange = function() 
+    {
+        if (http.readyState == XMLHttpRequest.DONE) 
+        {
+            let companyInfo = JSON.parse(http.responseText);
+            square.nextSibling.nextSibling.innerHTML = companyInfo[statistic];
+        }
+    }
+    console.log(statistic);
+}
+
+
 
 for (let y = 0; y < ulSeparadoresDeAnalise.length ; y++)
     ulSeparadoresDeAnalise[y].addEventListener('click' , function(event){
@@ -111,7 +158,6 @@ for (let y = 0; y < ulSeparadoresDeAnalise.length ; y++)
             if (ulSeparadoresDeAnalise[x] == event.target)
             {
                 ulSeparadoresDeAnalise[x].style = "text-decoration: overline black;";
-                console.log(ulSeparadoresDeAnalise[x].id)
                 switch(ulSeparadoresDeAnalise[x].id)
                 {
                     case 'overviewDataButton' :
@@ -145,6 +191,7 @@ for (let y = 0; y < ulSeparadoresDeAnalise.length ; y++)
                         turnDisplayBlock(calendarContainer);
                         turnDisplayNone(recentNewsContainer);
                         turnDisplayNone(nextEventContainer);
+                        getCalendar();
                         break;
                     case 'recentNewsSeparador' :
                         turnDisplayNone(overviewDataContainer);
@@ -153,6 +200,7 @@ for (let y = 0; y < ulSeparadoresDeAnalise.length ; y++)
                         turnDisplayNone(calendarContainer);
                         turnDisplayBlock(recentNewsContainer);
                         turnDisplayNone(nextEventContainer);
+                        getPressRelease(companySymbol);
                         break;
                     case 'nextEventsSeparador' :
                         turnDisplayNone(overviewDataContainer);
@@ -281,56 +329,10 @@ function changeLogoImage(str)
     
     companyImageLink.src = "https://logo.clearbit.com/" + str + ".com"
     
-    companyImageLink.addEventListener("error" , function (){ 
+    companyImageLink.addEventListener("error" , function ()
+    { 
         searchedName.innerHTML = "Sorry, we could not find  a logo with that name"
-     })
-}
-
-function giveCompanieSymbol(name)
-{
-    if (stocksymbols.hasOwnProperty(name))
-    {
-        companySymbol = stocksymbols[name];
-        companyOverview(companySymbol);
-    }
-    else
-        companyOverviewText.innerHTML = "We couldn't find an overview. Try different name or remove white space.";
-}
-
-
-
-function companyOverview(symbol)
-{
-    let http = new XMLHttpRequest();
-
-    http.open("GET" , "https://www.alphavantage.co/query?function=OVERVIEW&symbol="+ symbol + "&apikey=NK2X3UYDTIVZTR0Q");
-    http.send();
-    http.onreadystatechange = function() 
-    {
-        if (http.readyState == XMLHttpRequest.DONE) 
-        {
-            let companyInfo = JSON.parse(http.responseText);
-            companyOverviewText.innerHTML = companyInfo.Description;
-        }
-    }
-}
-
-function getOverviewStatistic(companySymbol , statistic, square)
-{
-
-    let http = new XMLHttpRequest();
-
-    http.open("GET" , "https://www.alphavantage.co/query?function=OVERVIEW&symbol="+ companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
-    http.send();
-    http.onreadystatechange = function() 
-    {
-        if (http.readyState == XMLHttpRequest.DONE) 
-        {
-            let companyInfo = JSON.parse(http.responseText);
-            square.nextSibling.nextSibling.innerHTML = companyInfo[statistic];
-        }
-    }
-    console.log(statistic);
+    })
 }
 
 function getIncomeStatementInfo(companySymbol, requiredInfo , selectedValue)
@@ -413,8 +415,6 @@ function objectForChart()
                 arrayOfMonths.push(month);
                 arrayOfPricePerMonth.push(responseObject['Monthly Time Series'][month]['4. close']);
             }
-            console.log('This should come 2nd');
-            //displayChart();
         }
     }
 }
@@ -453,7 +453,7 @@ function objectForChart()
             if (event.target.innerText == '1 Day')
                console.log('Work here later')
             else if (event.target.innerText == '5 Day')
-                console.log('Work here later')
+                displayDailyChart(0, 5)
             else if (event.target.innerText == '1 Month')
                 displayDailyChart(0, 30)
             else if(event.target.innerText == '3 Month')
@@ -510,19 +510,243 @@ function objectForChart()
     
     }
 
- /*   const data = null;
 
-const xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
 
-xhr.addEventListener("readystatechange", function () {
-	if (this.readyState === this.DONE) {
-		console.log(this.responseText);
-	}
-});
+function getPressRelease()
+{
+    let pressReleaseObject;
 
-xhr.open("GET", "https://yahoo-finance-low-latency.p.rapidapi.com/v2/finance/news?symbols=PLUG");
-xhr.setRequestHeader("x-rapidapi-key", "9376885f11msh877c925bce2ac1ep1bc7e9jsnf2fba18f7946");
-xhr.setRequestHeader("x-rapidapi-host", "yahoo-finance-low-latency.p.rapidapi.com");
+    let pressReleasesTitle = document.getElementById('pressReleaseTitle');
+    let publishedDate = document.getElementById('publishedDate');
 
-xhr.send(data);*/
+    let pressReleasesTitle2 = document.getElementById('pressReleaseTitle2');
+    let publishedDate2 = document.getElementById('publishedDate2');
+
+    let pressReleasesTitle3 = document.getElementById('pressReleaseTitle3');
+    let publishedDate3 = document.getElementById('publishedDate3');
+
+    let pressReleaseTitle_4 = document.getElementById('pressReleaseTitle_4');
+    let publishedDate_4 = document.getElementById('publishedDate_4');
+
+    let pressReleasesTitle_5 = document.getElementById('pressReleaseTitle_5');
+    let publishedDate_5 = document.getElementById('publishedDate_5');
+
+    let pressReleaseContent = document.getElementById('pressReleaseContent');
+    let pressReleaseContentButton = document.getElementById('pressReleaseContentButton')
+    
+    
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://seeking-alpha.p.rapidapi.com/press-releases/list?id="+ companySymbol + "&until=0&size=10");
+    xhr.setRequestHeader("x-rapidapi-key", "9376885f11msh877c925bce2ac1ep1bc7e9jsnf2fba18f7946");
+    xhr.setRequestHeader("x-rapidapi-host", "seeking-alpha.p.rapidapi.com");
+    xhr.send();
+    xhr.addEventListener("readystatechange", function() 
+        {
+	        if (this.readyState === this.DONE)
+		        pressReleaseObject = JSON.parse(this.responseText);
+                pressReleasesTitle.innerText = pressReleaseObject['data'][0]['attributes']['title'];
+                publishedDate.innerText = 'Publish date : ' + pressReleaseObject['data'][0]['attributes']['publishOn'];
+                pressReleasesTitle2.innerText = pressReleaseObject['data'][1]['attributes']['title'];
+                publishedDate2.innerText = 'Publish date : ' + pressReleaseObject['data'][1]['attributes']['publishOn'];
+                pressReleasesTitle3.innerText  = pressReleaseObject['data'][2]['attributes']['title'];
+                publishedDate3.innerText  = 'Publish date : ' + pressReleaseObject['data'][2]['attributes']['publishOn'];
+                pressReleaseTitle_4.innerText  = pressReleaseObject['data'][3]['attributes']['title'];
+                publishedDate_4.innerText  = 'Publish date : ' + pressReleaseObject['data'][3]['attributes']['publishOn'];
+                pressReleasesTitle_5.innerText  = pressReleaseObject['data'][4]['attributes']['title'];
+                publishedDate_5.innerText  = 'Publish date : ' + pressReleaseObject['data'][4]['attributes']['publishOn'];
+        });
+
+
+    pressReleaseContentButton.addEventListener('click' , function()
+    {
+        let pressReleaseID = pressReleaseObject['data'][0]['id'];
+        
+
+        const xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.addEventListener("readystatechange", function () 
+        {
+	        if (this.readyState === this.DONE) 
+            {
+		        let pressReleaseContentResponse = JSON.parse(this.responseText);
+                pressReleaseContent.innerHTML = pressReleaseContentResponse['data']['attributes']['content'];
+	        }
+        });
+
+        xhr.open("GET", "https://seeking-alpha.p.rapidapi.com/press-releases/get-details?id=" + pressReleaseID);
+        xhr.setRequestHeader("x-rapidapi-key", "9376885f11msh877c925bce2ac1ep1bc7e9jsnf2fba18f7946");
+        xhr.setRequestHeader("x-rapidapi-host", "seeking-alpha.p.rapidapi.com");
+        xhr.send();
+    })
+
+    let pressReleaseContentButton2 = document.getElementById('readMoreButton');
+
+    pressReleaseContentButton2.addEventListener('click' , function()
+    {
+        let pressReleaseID2 = pressReleaseObject['data'][1]['id'];
+
+        const xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.addEventListener("readystatechange", function () 
+        {
+	        if (this.readyState === this.DONE) 
+            {
+		        let pressReleaseContentResponse = JSON.parse(this.responseText);
+                document.getElementById('pressReleaseContent2').innerHTML = pressReleaseContentResponse['data']['attributes']['content'];
+	        }
+        });
+
+        xhr.open("GET", "https://seeking-alpha.p.rapidapi.com/press-releases/get-details?id=" + pressReleaseID2);
+        xhr.setRequestHeader("x-rapidapi-key", "9376885f11msh877c925bce2ac1ep1bc7e9jsnf2fba18f7946");
+        xhr.setRequestHeader("x-rapidapi-host", "seeking-alpha.p.rapidapi.com");
+        xhr.send();
+    })
+
+    let pressReleaseContentButton3 = document.getElementById('readMoreButton3');
+
+    pressReleaseContentButton3.addEventListener('click' , function()
+    {
+        let pressReleaseID3 = pressReleaseObject['data'][2]['id'];
+
+        const xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.addEventListener("readystatechange", function () 
+        {
+	        if (this.readyState === this.DONE) 
+            {
+		        let pressReleaseContentResponse = JSON.parse(this.responseText);
+                document.getElementById('pressReleaseContent3').innerHTML = pressReleaseContentResponse['data']['attributes']['content'];
+	        }
+        });
+
+        xhr.open("GET", "https://seeking-alpha.p.rapidapi.com/press-releases/get-details?id=" + pressReleaseID3);
+        xhr.setRequestHeader("x-rapidapi-key", "9376885f11msh877c925bce2ac1ep1bc7e9jsnf2fba18f7946");
+        xhr.setRequestHeader("x-rapidapi-host", "seeking-alpha.p.rapidapi.com");
+        xhr.send();
+    })
+
+    let pressReleaseContentButton4 = document.getElementById('readMoreButton4');
+
+    pressReleaseContentButton4.addEventListener('click' , function()
+    {
+        let pressReleaseID4 = pressReleaseObject['data'][3]['id'];
+
+        const xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.open("GET", "https://seeking-alpha.p.rapidapi.com/press-releases/get-details?id=" + pressReleaseID4);
+        xhr.setRequestHeader("x-rapidapi-key", "9376885f11msh877c925bce2ac1ep1bc7e9jsnf2fba18f7946");
+        xhr.setRequestHeader("x-rapidapi-host", "seeking-alpha.p.rapidapi.com");
+        xhr.send();
+        xhr.addEventListener("readystatechange", function () 
+        {
+	        if (this.readyState === this.DONE) 
+            {
+		        let pressReleaseContentResponse = JSON.parse(this.responseText);
+                document.getElementById('pressReleaseContent_4').innerHTML = pressReleaseContentResponse['data']['attributes']['content'];
+	        }
+        });
+    })
+
+
+}
+
+
+
+
+let datasJSON;
+let obj = 
+{
+    reportDateArray : [],
+    fiscalDateEndingArray : [],
+};
+
+async function getCalendar(){
+
+  let datasCSV;
+  let http = new XMLHttpRequest();
+
+  http.open('GET' , "https://www.alphavantage.co/query?function=EARNINGS_CALENDAR&symbol=" + companySymbol + "&horizon=12month&apikey=NK2X3UYDTIVZTR0Q");
+  http.send();
+  http.onreadystatechange = function() 
+    {
+      if (http.readyState == XMLHttpRequest.DONE) 
+        {
+            datasCSV = (http.responseText);
+            datasJSON = CSVtoJSON(datasCSV); //converting received CSV to an array of Objects
+            return push();
+        }
+    }
+}
+
+async function push()
+{
+    await getCalendar();
+
+    for ( let i= 0; i < datasJSON.length; i++)
+    {
+        obj.reportDateArray.push(datasJSON[i]['reportDate']);
+        obj.fiscalDateEndingArray.push(datasJSON[i]['fiscalDateEnding']);
+    }
+    return rendering()
+}
+
+ async function rendering() 
+  {
+      await push();
+    // page is ready
+    $('#calendar').fullCalendar({
+        // calendar properties
+        events: 
+        [
+            {
+                title  : 'TODAY',
+                start  : new Date(),
+                display : 'block',
+                color : 'rgba(17, 141, 69, 0.9)',
+                textColor : 'black',
+              },
+            {
+                title  : 'Report Date',
+                start  : obj.reportDateArray[0],
+                display : 'block',
+                color : 'rgba(17, 141, 69, 0.9)',
+                textColor : 'black',
+              },
+              {
+                title  : 'Report Date',
+                start  : obj.reportDateArray[1],
+                display : 'block',
+                color : 'rgba(17, 141, 69, 0.9)',
+                textColor : 'black',
+              },
+              {
+                title  : 'Report Date',
+                start  : obj.reportDateArray[2],
+                color : 'rgba(17, 141, 69, 0.9)',
+                textColor : 'black',
+              },
+              {
+                title  : 'Fiscal Date Ending',
+                start  : obj.fiscalDateEndingArray[0],
+                color : 'rgba(17, 141, 69, 0.9)',
+                textColor : 'black',
+              },
+              {
+                title  : 'Fiscal Date Ending',
+                start  : obj.fiscalDateEndingArray[1],
+                color : 'rgba(17, 141, 69, 0.9)',
+                textColor : 'black',
+              },
+              {
+                title  : 'Fiscal Date Ending',
+                start  : obj.fiscalDateEndingArray[2],
+                color : 'rgba(17, 141, 69, 0.9)',
+                textColor : 'black',
+                fontSize : '12px'
+              },
+        ]
+    })
+  };
+
+
+
