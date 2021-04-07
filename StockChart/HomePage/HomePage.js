@@ -25,6 +25,8 @@ let balanceSheetOptions = document.getElementById('balanceSheetOptions');
 let cashFlowOptions = document.getElementById('cashFlowOptions')
 let companyLogo = document.getElementById("companyLogo");
 let companySymbol;
+let apiKeyBonvalots = 'NK2X3UYDTIVZTR0Q'
+let apiKeySmmbonvalot = 'QXV3WOOLZ164BNU5'
 let cashFlowInfo;
 let balanceSheetInfo;
 let incomeStatementInfo;
@@ -93,9 +95,9 @@ closeProfileButton.addEventListener("click", function()
 searchForm.addEventListener("submit" , function(event)
     {
         event.preventDefault(); // Evita a submissão normal do formulário
-        searchedCompanyName.innerText = searchBar.value;  
+        //searchedCompanyName.innerText = searchBar.value;  
         changeLogoImage(searchBar.value);
-        giveCompanieSymbol(searchBar.value);
+        searchCompanieSymbol(searchBar.value);
         TurnVisible(companyLogo);
         TurnVisible(overviewDataContainer);
         TurnVisible(separadoresAnalise);
@@ -105,22 +107,32 @@ searchForm.addEventListener("submit" , function(event)
     }
 )
 
-function giveCompanieSymbol(name)
+
+function searchCompanieSymbol(name)
 {
-    if (stocksymbols.hasOwnProperty(name))
+    console.log(name);
+
+    let searchRegex = new RegExp(name, 'i');
+
+    for(let companie in stocksymbols)
     {
-        companySymbol = stocksymbols[name];
-        companyOverview(companySymbol);
-    }
-    else
-        companyOverviewText.innerText = "We couldn't find an overview. Try different name and remove/add white space and special Characters.";
+        if(companie.match(searchRegex))
+        {
+            companySymbol = stocksymbols[companie];
+            searchedCompanyName.innerText = companie;
+            console.log(companySymbol);
+            companyOverview(companySymbol)
+            return companySymbol;
+        }
+        
+    } 
 }
 
 function companyOverview(companySymbol)
 {
     let http = new XMLHttpRequest();
 
-    http.open("GET" , "https://www.alphavantage.co/query?function=OVERVIEW&symbol="+ companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.open("GET" , "https://www.alphavantage.co/query?function=OVERVIEW&symbol="+ companySymbol + "&apikey=" + apiKeySmmbonvalot);
     http.send();
     http.onreadystatechange = function() 
     {
@@ -137,7 +149,7 @@ function getOverviewStatistic(companySymbol , statistic, square)
 
     let http = new XMLHttpRequest();
 
-    http.open("GET" , "https://www.alphavantage.co/query?function=OVERVIEW&symbol="+ companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.open("GET" , "https://www.alphavantage.co/query?function=OVERVIEW&symbol="+ companySymbol + "&apikey=" + apiKeySmmbonvalot);
     http.send();
     http.onreadystatechange = function() 
     {
@@ -261,7 +273,7 @@ buttonToShowISTable.addEventListener('click' , function()
 
     let http = new XMLHttpRequest();
 
-    http.open('GET' , "https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.open('GET' , "https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=" + companySymbol + "&apikey=" + apiKeySmmbonvalot);
     http.send();
     http.onreadystatechange = function() 
     {
@@ -284,7 +296,7 @@ buttonToShowBSTable.addEventListener('click', function()
 
     let http = new XMLHttpRequest();
 
-    http.open('GET' , "https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.open('GET' , "https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=" + companySymbol + "&apikey=" + apiKeySmmbonvalot);
     http.send();
     http.onreadystatechange = function() 
     {
@@ -307,7 +319,7 @@ buttonToShowCFTable.addEventListener('click' , function ()
     
     let http = new XMLHttpRequest();
 
-    http.open('GET' , "https://www.alphavantage.co/query?function=CASH_FLOW&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.open('GET' , "https://www.alphavantage.co/query?function=CASH_FLOW&symbol=" + companySymbol + "&apikey=" + apiKeySmmbonvalot);
     http.send();
     http.onreadystatechange = function() 
     {
@@ -327,6 +339,8 @@ removeCfTable.addEventListener('click', function()
 function changeLogoImage(str)
 { 
     
+    str = str.replace(/\s/g, '')
+
     companyImageLink.src = "https://logo.clearbit.com/" + str + ".com"
     
     companyImageLink.addEventListener("error" , function ()
@@ -339,7 +353,7 @@ function getIncomeStatementInfo(companySymbol, requiredInfo , selectedValue)
 {
     let http = new XMLHttpRequest();
 
-    http.open('GET' , "https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.open('GET' , "https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=" + companySymbol + "&apikey=" + apiKeySmmbonvalot);
     http.send();
     http.onreadystatechange = function() 
     {
@@ -358,7 +372,7 @@ function getBalanceSheetInfo(companySymbol, requiredInfo , selectedValue)
 {
     let http = new XMLHttpRequest();
 
-    http.open('GET' , "https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.open('GET' , "https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=" + companySymbol + "&apikey=" + apiKeySmmbonvalot);
     http.send();
     http.onreadystatechange = function() 
     {
@@ -376,7 +390,7 @@ function getCashFlowInfo(companySymbol, requiredInfo , selectedValue)
 {
     let http = new XMLHttpRequest();
 
-    http.open('GET' , "https://www.alphavantage.co/query?function=CASH_FLOW&symbol=" + companySymbol + "&apikey=NK2X3UYDTIVZTR0Q");
+    http.open('GET' , "https://www.alphavantage.co/query?function=CASH_FLOW&symbol=" + companySymbol + "&apikey=" + apiKeySmmbonvalot);
     http.send();
     http.onreadystatechange = function() 
     {
@@ -402,7 +416,7 @@ function objectForChart()
 {
     let http = new XMLHttpRequest();
 
-    http.open('GET' , 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=' + companySymbol + '&apikey=NK2X3UYDTIVZTR0Q');
+    http.open('GET' , 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=' + companySymbol + '&apikey=' + apiKeySmmbonvalot);
     http.send();
     http.onreadystatechange = function() 
     {
@@ -469,7 +483,7 @@ function objectForChart()
     {   
         let http = new XMLHttpRequest();
 
-        http.open('GET' , 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+ companySymbol + '&apikey=NK2X3UYDTIVZTR0Q');
+        http.open('GET' , 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+ companySymbol + '&apikey=' + apiKeySmmbonvalot);
         http.send();
         http.onreadystatechange = function() 
         {
@@ -647,6 +661,27 @@ function getPressRelease()
         });
     })
 
+    let pressReleaseContentButton5 = document.getElementById('readMoreButton5');
+
+    pressReleaseContentButton5.addEventListener('click' , function()
+    {
+        let pressReleaseID5 = pressReleaseObject['data'][4]['id'];
+
+        const xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.open("GET", "https://seeking-alpha.p.rapidapi.com/press-releases/get-details?id=" + pressReleaseID5);
+        xhr.setRequestHeader("x-rapidapi-key", "9376885f11msh877c925bce2ac1ep1bc7e9jsnf2fba18f7946");
+        xhr.setRequestHeader("x-rapidapi-host", "seeking-alpha.p.rapidapi.com");
+        xhr.send();
+        xhr.addEventListener("readystatechange", function () 
+        {
+	        if (this.readyState === this.DONE) 
+            {
+		        let pressReleaseContentResponse = JSON.parse(this.responseText);
+                document.getElementById('pressReleaseContent_5').innerHTML = pressReleaseContentResponse['data']['attributes']['content'];
+	        }
+        });
+    })
 
 }
 
@@ -660,12 +695,13 @@ let obj =
     fiscalDateEndingArray : [],
 };
 
-async function getCalendar(){
+function getCalendar()
+{
 
   let datasCSV;
   let http = new XMLHttpRequest();
 
-  http.open('GET' , "https://www.alphavantage.co/query?function=EARNINGS_CALENDAR&symbol=" + companySymbol + "&horizon=12month&apikey=NK2X3UYDTIVZTR0Q");
+  http.open('GET' , "https://www.alphavantage.co/query?function=EARNINGS_CALENDAR&symbol=" + companySymbol + "&horizon=12month&apikey=" + apiKeySmmbonvalot);
   http.send();
   http.onreadystatechange = function() 
     {
@@ -673,26 +709,24 @@ async function getCalendar(){
         {
             datasCSV = (http.responseText);
             datasJSON = CSVtoJSON(datasCSV); //converting received CSV to an array of Objects
-            return push();
+            push();
         }
     }
 }
 
-async function push()
+function push()
 {
-    await getCalendar();
-
+     
     for ( let i= 0; i < datasJSON.length; i++)
     {
         obj.reportDateArray.push(datasJSON[i]['reportDate']);
         obj.fiscalDateEndingArray.push(datasJSON[i]['fiscalDateEnding']);
     }
-    return rendering()
+    rendering()
 }
 
- async function rendering() 
+function rendering() 
   {
-      await push();
     // page is ready
     $('#calendar').fullCalendar({
         // calendar properties
@@ -746,7 +780,4 @@ async function push()
               },
         ]
     })
-  };
-
-
-
+  }

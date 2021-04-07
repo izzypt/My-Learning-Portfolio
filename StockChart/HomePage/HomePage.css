@@ -482,7 +482,8 @@ hr
     padding : 5px;
     text-decoration: underline;
     margin : 5px;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: bold;
     background-color: rgba(221, 211, 211, 0.993);
 }
 
