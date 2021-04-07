@@ -1,5 +1,6 @@
 This is my first project with some API requests.
 
-It is suposed to search for stock based on the name you introduce and retrieve a logo, as well some Overview about the company and the . You should also be able to
-choose some metrics and ratios about the company , like PE , EPS , CurrentRatio, etc...
+The main goal was to be able to search for companies statistics, fundamental and technical data, display tables , watch graphics and look for news.
+
+The code already has an embedded free API key for testing purposes , but please ask for your own at AlphaVatange if you are going to use this code.
 
