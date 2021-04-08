@@ -22,7 +22,7 @@ let calendarContainer = document.getElementById('calendarContainer');
 let overviewSelectOptions = document.getElementsByClassName("overviewSelectOptions");
 let incomeStatementOptions = document.getElementById('incomeStatementOption');
 let balanceSheetOptions = document.getElementById('balanceSheetOptions');
-let cashFlowOptions = document.getElementById('cashFlowOptions')
+let cashFlowOptions = document.getElementById('cashFlowOptions');
 let companyLogo = document.getElementById("companyLogo");
 let companySymbol;
 let apiKeyBonvalots = 'NK2X3UYDTIVZTR0Q'
@@ -42,6 +42,11 @@ let buttonToShowISTable = document.getElementById('buttonToShowISTable');
 let removeCfTable = document.getElementById('removeCfTable');
 let removeBsTable = document.getElementById('removeBsTable');
 let removeIsTable = document.getElementById('removeIsTable');
+let datasJSON;
+let obj = {
+    reportDateArray : [],
+    fiscalDateEndingArray : [],
+};
 
 
 cabecalho.addEventListener("mouseover", changeToInlineBlock);
@@ -95,7 +100,6 @@ closeProfileButton.addEventListener("click", function()
 searchForm.addEventListener("submit" , function(event)
     {
         event.preventDefault(); // Evita a submissão normal do formulário
-        //searchedCompanyName.innerText = searchBar.value;  
         changeLogoImage(searchBar.value);
         searchCompanieSymbol(searchBar.value);
         TurnVisible(companyLogo);
@@ -103,15 +107,12 @@ searchForm.addEventListener("submit" , function(event)
         TurnVisible(separadoresAnalise);
         TurnVisible(personaliseParagrafo);
         turnDisplayBlock(mainContainer);
-        objectForChart();
     }
 )
 
 
 function searchCompanieSymbol(name)
 {
-    console.log(name);
-
     let searchRegex = new RegExp(name, 'i');
 
     for(let companie in stocksymbols)
@@ -120,8 +121,7 @@ function searchCompanieSymbol(name)
         {
             companySymbol = stocksymbols[companie];
             searchedCompanyName.innerText = companie;
-            console.log(companySymbol);
-            companyOverview(companySymbol)
+            companyOverview(companySymbol);
             return companySymbol;
         }
         
@@ -159,7 +159,6 @@ function getOverviewStatistic(companySymbol , statistic, square)
             square.nextSibling.nextSibling.innerHTML = companyInfo[statistic];
         }
     }
-    console.log(statistic);
 }
 
 
@@ -195,6 +194,7 @@ for (let y = 0; y < ulSeparadoresDeAnalise.length ; y++)
                         turnDisplayNone(calendarContainer);
                         turnDisplayNone(recentNewsContainer);
                         turnDisplayNone(nextEventContainer);
+                        objectForChart();
                         break;
                     case 'calendarSeparadorButton' :
                         turnDisplayNone(overviewDataContainer);
@@ -232,7 +232,6 @@ for(let x = 0; x < overviewSelectOptions.length; x++)
     {
         overviewSelectOptions[x].addEventListener("change" , function()
         {
-            console.log(overviewSelectOptions[x].value)
             getOverviewStatistic(companySymbol , overviewSelectOptions[x].value , overviewSelectOptions[x])
         })
     }
@@ -242,8 +241,6 @@ if (incomeStatementOptions)
     {
         reqInfoIncomeStatementOptions = incomeStatementOptions.value;
         incomeStatementRadioValue = document.forms.incomeStatementRadio.incomeStatementRadioName.value;
-        console.log('Income Statement requested info : ' + reqInfoIncomeStatementOptions);
-        console.log('Income statement radio value : ' + incomeStatementRadioValue);
         getIncomeStatementInfo(companySymbol, reqInfoIncomeStatementOptions, incomeStatementRadioValue );
     })
 
@@ -252,8 +249,6 @@ if(balanceSheetOptions)
    {
         reqInfoBalanceSheetOptions = balanceSheetOptions.value;
         balanceSheetRadioValue = document.forms.balanceSheetRadio.balanceSheetRadioName.value;
-        console.log('Requested info in balance sheet : ' + reqInfoBalanceSheetOptions);
-        console.group('Balance Sheet radio value : ' + balanceSheetRadioValue);
         getBalanceSheetInfo(companySymbol, reqInfoIncomeStatementOptions, incomeStatementRadioValue )
    })
 
@@ -262,8 +257,6 @@ if(cashFlowOptions)
    {
         reqInfoCashFlowOptions = cashFlowOptions.value;
         cashFlowRadioValue = document.forms.cashFlowRadio.cashFlowRadioName.value
-        console.log('Requested info in Cash Flow : ' + reqInfoCashFlowOptions);
-        console.log('Cash Flow radio value is : ' + cashFlowRadioValue);
         getCashFlowInfo(companySymbol)
    })
 
@@ -360,10 +353,8 @@ function getIncomeStatementInfo(companySymbol, requiredInfo , selectedValue)
         if (http.readyState == XMLHttpRequest.DONE) 
         {
             let incomeStatementInfo = JSON.parse(http.responseText);
-            console.log(incomeStatementInfo[incomeStatementRadioValue]);
-            console.log(incomeStatementInfo);
             document.getElementById('IncomeStatementSelectedValue').innerHTML = 'O valor de ' + reqInfoIncomeStatementOptions + ' é ' + JSON.stringify(incomeStatementInfo[incomeStatementRadioValue][0][reqInfoIncomeStatementOptions]) + ' .';
-            console.log('O valor de ' + reqInfoIncomeStatementOptions + ' é ' + incomeStatementInfo[incomeStatementRadioValue][0][reqInfoIncomeStatementOptions]);
+    
         }
     }
 }
@@ -379,9 +370,7 @@ function getBalanceSheetInfo(companySymbol, requiredInfo , selectedValue)
         if (http.readyState == XMLHttpRequest.DONE) 
         {
             let balanceSheetInfo = JSON.parse(http.responseText);
-            console.log(balanceSheetInfo);
             document.getElementById('balanceSheetSelectedValue').innerHTML = 'O valor de ' + reqInfoBalanceSheetOptions + ' é ' + JSON.stringify(balanceSheetInfo[balanceSheetRadioValue][0][reqInfoBalanceSheetOptions]) + ' .';
-            console.log('O valor de ' + reqInfoBalanceSheetOptions + ' é ' + balanceSheetInfo[balanceSheetRadioValue][0][reqInfoBalanceSheetOptions]);
         }
     }
 }
@@ -397,9 +386,7 @@ function getCashFlowInfo(companySymbol, requiredInfo , selectedValue)
         if (http.readyState == XMLHttpRequest.DONE) 
         {
             cashFlowInfo = JSON.parse(http.responseText);
-            console.log('Cash Flow info retornada pela API é : ' + cashFlowInfo);
             document.getElementById('cashFlowSelectedValue').innerHTML = 'O valor de ' + reqInfoCashFlowOptions + ' é ' + JSON.stringify(cashFlowInfo[cashFlowRadioValue][0][reqInfoCashFlowOptions]) + ' .';
-            console.log('O valor de ' + reqInfoCashFlowOptions + ' é ' + cashFlowInfo[cashFlowRadioValue][0][reqInfoCashFlowOptions]);
         }
     }
 }
@@ -423,7 +410,6 @@ function objectForChart()
         if (http.readyState == XMLHttpRequest.DONE) 
         {
             let responseObject = JSON.parse(http.response);
-
             for(let month in responseObject['Monthly Time Series'] )
             {
                 arrayOfMonths.push(month);
@@ -437,11 +423,8 @@ function objectForChart()
     {   
         let numeroDeMeses = arrayOfMonths.slice(x,y)
         let precoDosMeses = arrayOfPricePerMonth.slice(x,y)
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
+        let chart = new Chart(ctx, {
             type: 'line',
-        
-            // The data for our dataset
             data: {
                 labels: numeroDeMeses.reverse(),
                 datasets: [{
@@ -451,8 +434,6 @@ function objectForChart()
                     data: precoDosMeses.reverse(),
                 }]
             },
-        
-            // Configuration options go here
             options: {}
         });
     }
@@ -685,15 +666,6 @@ function getPressRelease()
 
 }
 
-
-
-
-let datasJSON;
-let obj = 
-{
-    reportDateArray : [],
-    fiscalDateEndingArray : [],
-};
 
 function getCalendar()
 {
